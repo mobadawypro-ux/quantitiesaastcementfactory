@@ -83,24 +83,27 @@
   /* Dashboard Cards */
   .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
     margin-top: 20px;
   }
   .card {
     background: #fff;
-    padding: 25px 20px;
+    padding: 20px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     text-align: center;
     border-top: 5px solid var(--primary-color);
   }
-  .card h3 { margin: 0 0 10px 0; color: #555; font-size: 16px; }
-  .card p { margin: 0; font-size: 28px; font-weight: bold; color: var(--primary-color); }
-  .card span { font-size: 13px; color: #888; display: block; margin-top: 5px; }
+  .card h3 { margin: 0 0 10px 0; color: #555; font-size: 14px; }
+  .card p { margin: 0; font-size: 24px; font-weight: bold; color: var(--primary-color); }
+  .card span { font-size: 12px; color: #888; display: block; margin-top: 5px; }
   
   .card-highlight { border-top: 5px solid #d35400; }
   .card-highlight p { color: #d35400; }
+  
+  .card-steel { border-top: 5px solid #27ae60; }
+  .card-steel p { color: #27ae60; }
 
   /* Detailed Tables */
   h2.section-title {
@@ -153,9 +156,9 @@
 
   <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'Dashboard')" id="defaultOpen">اللوحة الرئيسية</button>
-    <button class="tablinks" onclick="openTab(event, 'CarWash')">تفاصيل المغسلة</button>
-    <button class="tablinks" onclick="openTab(event, 'SacksWarehouse')">تفاصيل مخازن الشكاير</button>
-    <button class="tablinks" onclick="openTab(event, 'EquipmentHangar')">تفاصيل هنجر المعدات</button>
+    <button class="tablinks" onclick="openTab(event, 'CarWash')">تفاصيل المغسلة (شامل الحديد)</button>
+    <button class="tablinks" onclick="openTab(event, 'SacksWarehouse')">مخازن الشكاير (شامل الحديد)</button>
+    <button class="tablinks" onclick="openTab(event, 'EquipmentHangar')">هنجر المعدات (شامل الحديد)</button>
   </div>
 
   <!-- ================= DASHBOARD TAB ================= -->
@@ -163,29 +166,34 @@
     <h2 style="text-align: center; color: #333;">إجمالي كميات المشروع المجمعة</h2>
     <div class="dashboard-grid">
       <div class="card">
-        <h3>إجمالي أعمال الحفر</h3>
-        <p>6,295.51</p>
-        <span>متر مكعب (م³)</span>
-      </div>
-      <div class="card">
-        <h3>إجمالي أعمال الردم</h3>
-        <p>5,331.09</p>
-        <span>متر مكعب (م³)</span>
+        <h3>أعمال الحفر والردم</h3>
+        <p>11,626</p>
+        <span>متر مكعب (م³) إجمالي</span>
       </div>
       <div class="card card-highlight">
-        <h3>إجمالي مشمع البولي إيثيلين</h3>
-        <p>10,053.30</p>
-        <span>متر مسطح هندسي صافي (م²)</span>
+        <h3>مشمع بولي إيثيلين</h3>
+        <p>10,053</p>
+        <span>متر مسطح (م²)</span>
       </div>
       <div class="card">
-        <h3>إجمالي العزل البيتوميني</h3>
+        <h3>العزل البيتوميني</h3>
         <p>5,134.89</p>
-        <span>متر مسطح (م² - شامل قصية الردم)</span>
+        <span>متر مسطح (م² - شامل القصية)</span>
       </div>
-      <div class="card">
-        <h3>مباني قصية الردم (25 سم)</h3>
-        <p>176.45</p>
-        <span>متر مكعب (م³)</span>
+      <div class="card card-steel">
+        <h3>حديد المغسلة</h3>
+        <p>16.70</p>
+        <span>طن (شامل الهالك)</span>
+      </div>
+      <div class="card card-steel">
+        <h3>حديد هنجر المعدات</h3>
+        <p>16.25</p>
+        <span>طن (شامل الهالك)</span>
+      </div>
+      <div class="card card-steel" style="border-top-color: #d35400;">
+        <h3 style="color:#d35400">حديد مخازن الشكاير</h3>
+        <p style="color:#d35400">108.33</p>
+        <span>طن (هنجرين شامل الهالك)</span>
       </div>
     </div>
   </div>
@@ -200,15 +208,15 @@
       <tr><td>حفر لزوم الأساسات</td><td>318.20 م²</td><td>2.50 م</td><td>795.506 م³</td></tr>
       <tr><td>حجم الخرسانات المخصومة للردم</td><td>قواعد، ميدات، خزانات ورقاب</td><td>---</td><td>125.337 م³</td></tr>
       <tr class="total-row"><td>صافي كمية الردم المدموك</td><td colspan="2">795.506 - 125.337</td><td>670.169 م³</td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات</td><td>---</td><td class="highlight">318.20 م² <span class="note">(تنفيذي: 350.02 م²)</span></td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 99.5 م</td><td>---</td><td class="highlight">59.70 م² <span class="note">(تنفيذي: 65.67 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات</td><td>---</td><td><span class="highlight">318.20 م²</span><span class="note">(تنفيذي: 350.02 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 99.5 م</td><td>---</td><td><span class="highlight">59.70 م²</span><span class="note">(تنفيذي: 65.67 م²)</span></td></tr>
     </table>
 
     <h3 class="sub-title">2. مباني قصية الردم وعزلها البيتوميني</h3>
     <table>
       <tr><th>البند</th><th>التفاصيل والأبعاد</th><th>الكمية (م³)</th><th>مسطح العزل البيتوميني (للوجهين)</th></tr>
-      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 99.5 م × سمك 0.25 م × ارتفاع 1.70 م</td><td class="highlight">42.29 م³</td><td>---</td></tr>
-      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 99.5 م × ارتفاع 1.70 م × 2)</td><td>---</td><td class="highlight">338.30 م²</td></tr>
+      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 99.5 م × سمك 0.25 م × ارتفاع 1.70 م</td><td><span class="highlight">42.29 م³</span></td><td>---</td></tr>
+      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 99.5 م × ارتفاع 1.70 م × 2)</td><td>---</td><td><span class="highlight">338.30 م²</span></td></tr>
     </table>
 
     <h3 class="sub-title">3. أعمال الخرسانات والعزل البيتوميني الأساسية</h3>
@@ -221,8 +229,61 @@
       <tr><td>الميدات الأرضية (الوجهين)</td><td>Gb1, Gb2, Gb3 بطول 99.5 م</td><td>17.413</td><td>139.30</td></tr>
       <tr><td>كمر الدور الأول</td><td>B1 بطول 130 م</td><td>22.750</td><td>---</td></tr>
       <tr><td>الخزانات الأرضية (4 خزانات)</td><td>حوائط 30.6 + أرضية 16.8</td><td>47.400</td><td>122.40</td></tr>
-      <tr class="total-row"><td>الإجمالي الكلي للخرسانات والعزل بالمغسلة</td><td>---</td><td class="highlight">179.107 م³</td><td class="highlight">424.78 م² (بخلاف قصية الردم)</td></tr>
+      <tr class="total-row"><td>الإجمالي الكلي للخرسانات والعزل بالمغسلة</td><td>---</td><td><span class="highlight">179.107 م³</span></td><td><span class="highlight">424.78 م² (بخلاف قصية الردم)</span></td></tr>
     </table>
+
+    <h3 class="sub-title" style="border-right-color: #27ae60;">4. حصر حديد التسليح التفصيلي (BBS) للمغسلة</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>العنصر الإنشائي / النماذج</th>
+          <th>التسليح (رئيسي / سفلي / علوي)</th>
+          <th>الكانات / الحديد الثانوي</th>
+          <th>أوزان الأقطار المتوسطة (T8/T10/T12) كجم</th>
+          <th>أوزان الأقطار الكبيرة (T16/T18) كجم</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>القواعد المنفصلة (18 قاعدة)</td>
+          <td>T12 (سفلي فرش وغطاء 6-7/م')</td>
+          <td>---</td>
+          <td>982.50 (T12)</td>
+          <td>---</td>
+        </tr>
+        <tr>
+          <td>الخزانات الأرضية (4 خزانات)</td>
+          <td>T12 (خارجي وأرضية)</td>
+          <td>T10 (داخلي وأفقي)</td>
+          <td>1,193.50 (T12) + 860.10 (T10)</td>
+          <td>---</td>
+        </tr>
+        <tr>
+          <td>الأعمدة (18 عمود - C1, C2, C3)</td>
+          <td>10T16 لـ 14T16 (مختلف)</td>
+          <td>T10@200</td>
+          <td>2,270.50 (T10)</td>
+          <td>3,986.00 (T16)</td>
+        </tr>
+        <tr>
+          <td>الميدات الأرضية (GB1, GB2, GB3)</td>
+          <td>T16 للسفلي / T16-T18 للعلوي</td>
+          <td>T10@125/150</td>
+          <td>815.90 (T10)</td>
+          <td>1,173.00 (T16) + 1,014.20 (T18)</td>
+        </tr>
+        <tr>
+          <td>بلاطة السقف وكمرات الدور الأول</td>
+          <td>شبكة T10 + كمرات 3T16/T12</td>
+          <td>Y8@150/200</td>
+          <td>2,591.40 (T10) + 173.20 (T12) + 634.10 (Y8)</td>
+          <td>1,015.40 (T16)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="total-row" style="background: #27ae60 !important; color: #fff; padding: 15px; border-radius: 5px; text-align: center; margin-top: 15px; font-size: 16px;">
+      إجمالي طلبية الحديد لمبنى المغسلة (شاملة الهالك والوصلات) = 16.70 طن
+    </div>
   </div>
 
   <!-- ================= SACKS WAREHOUSE TAB ================= -->
@@ -232,17 +293,17 @@
     <h3 class="sub-title">1. الأعمال الترابية وعزل البولي إيثيلين</h3>
     <table>
       <tr><th>البند</th><th>التفاصيل للهنجر الواحد</th><th>كمية الهنجر</th><th>إجمالي (2) هنجر</th></tr>
-      <tr><td>أعمال الحفر</td><td>حفر شرائح وقواعد (1315 م² × عمق 1.30 م)</td><td>1,710.000 م³</td><td class="highlight">3,420.000 م³</td></tr>
-      <tr><td>أعمال الردم</td><td>الحفر (1710) - الخرسانات المدفونة (287.67)</td><td>1,422.321 م³</td><td class="highlight">2,844.642 م³</td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل الأرضيات (لكامل مسطح الهنجر 4000 م²)</td><td>4,000.00 م²</td><td class="highlight">8,000.00 م² <span class="note">(تنفيذي: 8,800.00 م²)</span></td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 324 م للهنجر</td><td>194.40 م²</td><td class="highlight">388.80 م² <span class="note">(تنفيذي: 427.68 م²)</span></td></tr>
+      <tr><td>أعمال الحفر</td><td>حفر شرائح وقواعد (1315 م² × عمق 1.30 م)</td><td>1,710.000 م³</td><td><span class="highlight">3,420.000 م³</span></td></tr>
+      <tr><td>أعمال الردم</td><td>الحفر (1710) - الخرسانات المدفونة (287.67)</td><td>1,422.321 م³</td><td><span class="highlight">2,844.642 م³</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل الأرضيات (لكامل مسطح الهنجر 4000 م²)</td><td>4,000.00 م²</td><td><span class="highlight">8,000.00 م²</span><span class="note">(تنفيذي: 8,800.00 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 324 م للهنجر</td><td>194.40 م²</td><td><span class="highlight">388.80 م²</span><span class="note">(تنفيذي: 427.68 م²)</span></td></tr>
     </table>
 
     <h3 class="sub-title">2. مباني قصية الردم وعزلها البيتوميني</h3>
     <table>
       <tr><th>البند</th><th>التفاصيل والأبعاد</th><th>الكمية (م³)</th><th>مسطح العزل البيتوميني (للوجهين)</th></tr>
-      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 648 م × سمك 0.25 م × ارتفاع 0.50 م</td><td class="highlight">81.00 م³</td><td>---</td></tr>
-      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 648 م × ارتفاع 0.50 م × 2)</td><td>---</td><td class="highlight">648.00 م²</td></tr>
+      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 648 م × سمك 0.25 م × ارتفاع 0.50 م</td><td><span class="highlight">81.00 م³</span></td><td>---</td></tr>
+      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 648 م × ارتفاع 0.50 م × 2)</td><td>---</td><td><span class="highlight">648.00 م²</span></td></tr>
     </table>
 
     <h3 class="sub-title">3. الخرسانات والعزل الأساسية (للهنجر الواحد)</h3>
@@ -252,8 +313,77 @@
       <tr><td>الخرسانة المسلحة R.C</td><td>F(4), F1(14), F2(15), F3(16), F4(8)</td><td>113.134</td><td>428.95</td></tr>
       <tr><td>رقاب الأعمدة</td><td>C1(16), C2(29), C3(12)</td><td>12.875</td><td>113.30</td></tr>
       <tr><td>الميدات الأرضية</td><td>GB1 بطول 324 متر</td><td>48.600</td><td>324.00</td></tr>
-      <tr class="total-row"><td>الإجمالي الكلي (عدد 2 هنجر)</td><td>يضرب في 2</td><td class="highlight">575.358 م³</td><td class="highlight">1,732.50 م² (بخلاف قصية الردم)</td></tr>
+      <tr class="total-row"><td>الإجمالي الكلي (عدد 2 هنجر)</td><td>يضرب في 2</td><td><span class="highlight">575.358 م³</span></td><td><span class="highlight">1,732.50 م² (بخلاف قصية الردم)</span></td></tr>
     </table>
+
+    <h3 class="sub-title" style="border-right-color: #d35400;">4. حصر حديد التسليح التفصيلي (BBS) لمخازن الشكاير (للهنجر الواحد)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>العنصر الإنشائي / النموذج</th>
+          <th>العدد / المساحة</th>
+          <th>تفصيل التسليح الرئيسي</th>
+          <th>الوزن الصافي (T8/T12) كجم</th>
+          <th>الوزن الصافي (T16) كجم</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>القواعد المنفصلة (F, F1, F2, F4)</td>
+          <td>41 قاعدة</td>
+          <td>5T12 و 6T12 فرش وغطاء</td>
+          <td>1,740.0 (T12)</td>
+          <td>---</td>
+        </tr>
+        <tr>
+          <td>القواعد المنفصلة (F3 - ثقيلة)</td>
+          <td>16 قاعدة</td>
+          <td>6T16 فرش وغطاء</td>
+          <td>---</td>
+          <td>3,519.6 (T16)</td>
+        </tr>
+        <tr>
+          <td>رقاب الأعمدة (C1, C2, C3)</td>
+          <td>57 عمود</td>
+          <td>متغير 4T12 إلى 18T16 | كانات T8</td>
+          <td>532.3 (T8) + 113.7 (T12)</td>
+          <td>1,641.1 (T16)</td>
+        </tr>
+        <tr>
+          <td>الميدات والكمرات العلوية (GB1, B01)</td>
+          <td>أطوال 324 م لكل</td>
+          <td>سفلي وعلوي T12 و T16 | كانات T8</td>
+          <td>2,389.0 (T8) + 1,726.0 (T12)</td>
+          <td>4,090.0 (T16)</td>
+        </tr>
+        <tr style="background-color: #fcf3cf;">
+          <td>بلاطات الأرضيات (S.O.G)</td>
+          <td>4,000 م²</td>
+          <td>شبكة 5T12 في الاتجاهين + أشاير T16</td>
+          <td><span class="highlight">35,520.0 (T12)</span></td>
+          <td>315.0 (T16)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="border-top-color: #34495e; padding: 15px;">
+        <h3 style="font-size: 13px;">إجمالي حديد T8 (للهنجر)</h3>
+        <p style="font-size: 20px; color: #34495e;">2.92 <span style="font-size: 12px;">طن</span></p>
+      </div>
+      <div class="card" style="border-top-color: #3498db; padding: 15px;">
+        <h3 style="font-size: 13px;">إجمالي حديد T12 (للهنجر)</h3>
+        <p style="font-size: 20px; color: #2980b9;">39.10 <span style="font-size: 12px;">طن</span></p>
+      </div>
+      <div class="card" style="border-top-color: #e67e22; padding: 15px;">
+        <h3 style="font-size: 13px;">إجمالي حديد T16 (للهنجر)</h3>
+        <p style="font-size: 20px; color: #d35400;">9.57 <span style="font-size: 12px;">طن</span></p>
+      </div>
+    </div>
+    
+    <div class="total-row" style="background: #d35400 !important; color: #fff; padding: 15px; border-radius: 5px; text-align: center; margin-top: 15px; font-size: 16px;">
+      الطلبية التنفيذية للموقع لعدد (2) هنجر شكاير (مضروب × 2 + شامل 5% هالك ووصلات) = 108.33 طن
+    </div>
   </div>
 
   <!-- ================= EQUIPMENT HANGAR TAB ================= -->
@@ -263,17 +393,17 @@
     <h3 class="sub-title">1. الأعمال الترابية وعزل البولي إيثيلين</h3>
     <table>
       <tr><th>البند</th><th>التفاصيل</th><th>إجمالي الكمية</th></tr>
-      <tr><td>أعمال الحفر</td><td>مساحة 1040 م² × عمق 2.00 م</td><td class="highlight">2,080.000 م³</td></tr>
-      <tr><td>أعمال الردم</td><td>الحفر (2080) - المخصوم المدفون (263.72)</td><td class="highlight">1,816.279 م³</td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات (1040 م²)</td><td class="highlight">1,040.00 م² <span class="note">(تنفيذي بالركوب: 1,144.00 م²)</span></td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول مستنتج 411 م</td><td class="highlight">246.60 م² <span class="note">(تنفيذي بالركوب: 271.26 م²)</span></td></tr>
+      <tr><td>أعمال الحفر</td><td>مساحة 1040 م² × عمق 2.00 م</td><td><span class="highlight">2,080.000 م³</span></td></tr>
+      <tr><td>أعمال الردم</td><td>الحفر (2080) - المخصوم المدفون (263.72)</td><td><span class="highlight">1,816.279 م³</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات (1040 م²)</td><td><span class="highlight">1,040.00 م²</span><span class="note">(تنفيذي بالركوب: 1,144.00 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول مستنتج 411 م</td><td><span class="highlight">246.60 م²</span><span class="note">(تنفيذي بالركوب: 271.26 م²)</span></td></tr>
     </table>
 
     <h3 class="sub-title">2. مباني قصية الردم وعزلها البيتوميني</h3>
     <table>
       <tr><th>البند</th><th>التفاصيل والأبعاد</th><th>الكمية (م³)</th><th>مسطح العزل البيتوميني (للوجهين)</th></tr>
-      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 411 م × سمك 0.25 م × ارتفاع 1.15 م</td><td class="highlight">53.16 م³</td><td>---</td></tr>
-      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 411 م × ارتفاع 1.15 م × 2)</td><td>---</td><td class="highlight">945.30 م²</td></tr>
+      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 411 م × سمك 0.25 م × ارتفاع 1.15 م</td><td><span class="highlight">53.16 م³</span></td><td>---</td></tr>
+      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 411 م × ارتفاع 1.15 م × 2)</td><td>---</td><td><span class="highlight">945.30 م²</span></td></tr>
     </table>
 
     <h3 class="sub-title">3. تفصيل الخرسانات والعزل البيتوميني الأساسية</h3>
@@ -284,8 +414,128 @@
       <tr><td>الأعمدة والرقاب</td><td>C0(18), C1(20), Pc(26)</td><td>39.725</td><td>212.00</td></tr>
       <tr><td>الميدات الأرضية والكمرات</td><td>B1(16.8), Gb0(33.8), Gb1(23.4)</td><td>74.141</td><td>427.00 (للميدات فقط)</td></tr>
       <tr><td>الخزانات الأرضية (4 خزانات)</td><td>حوائط 34.92 + أرضية 21.76</td><td>56.680</td><td>139.68</td></tr>
-      <tr class="total-row"><td>الإجمالي الكلي لهنجر المعدات</td><td>---</td><td class="highlight">295.286 م³</td><td class="highlight">1,045.36 م² (بخلاف قصية الردم)</td></tr>
+      <tr class="total-row"><td>الإجمالي الكلي لهنجر المعدات</td><td>---</td><td><span class="highlight">295.286 م³</span></td><td><span class="highlight">1,045.36 م² (بخلاف قصية الردم)</span></td></tr>
     </table>
+
+    <h3 class="sub-title" style="border-right-color: #27ae60;">4. حصر حديد التسليح التفصيلي (BBS) لهنجر المعدات</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>العنصر الإنشائي / النموذج</th>
+          <th>العدد / الطول</th>
+          <th>القطاع (م)</th>
+          <th>تفصيل التسليح الرئيسي</th>
+          <th>الكانات</th>
+          <th>الوزن (T10/T12) كجم</th>
+          <th>الوزن (T16/T18) كجم</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>القواعد المنفصلة (F0)</td>
+          <td>18</td>
+          <td>0.80 × 0.80</td>
+          <td>6T12 / م' (فرش وغطاء)</td>
+          <td>---</td>
+          <td>177.60 (T12)</td>
+          <td>---</td>
+        </tr>
+        <tr>
+          <td>القواعد المنفصلة (F1)</td>
+          <td>20</td>
+          <td>1.10 × 1.10</td>
+          <td>8T12 / م' (فرش وغطاء)</td>
+          <td>---</td>
+          <td>399.60 (T12)</td>
+          <td>---</td>
+        </tr>
+        <tr>
+          <td>القواعد المنفصلة (F2)</td>
+          <td>26</td>
+          <td>1.60 × 1.60</td>
+          <td>8T12 / م' (فرش وغطاء)</td>
+          <td>---</td>
+          <td>1,131.30 (T12)</td>
+          <td>---</td>
+        </tr>
+        <tr>
+          <td>رقاب الأعمدة (C0)</td>
+          <td>18</td>
+          <td>0.25 × 0.25</td>
+          <td>4T16</td>
+          <td>T10@200</td>
+          <td>85.40 (T10)</td>
+          <td>227.50 (T16)</td>
+        </tr>
+        <tr>
+          <td>رقاب الأعمدة (C1)</td>
+          <td>20</td>
+          <td>0.35 × 0.35</td>
+          <td>8T16</td>
+          <td>T10@200</td>
+          <td>133.20 (T10)</td>
+          <td>505.60 (T16)</td>
+        </tr>
+        <tr>
+          <td>رقاب الأعمدة (Pc)</td>
+          <td>26</td>
+          <td>0.55 × 0.55</td>
+          <td>12T18</td>
+          <td>T10@200 (صليبة)</td>
+          <td>866.50 (T10)</td>
+          <td><span class="highlight" style="color:#8e44ad;">2,184.00 (T18)</span></td>
+        </tr>
+        <tr>
+          <td>الميدات الأرضية (GB0)</td>
+          <td>271.00 م</td>
+          <td>0.25 × 0.50</td>
+          <td>4T16</td>
+          <td>T10@200</td>
+          <td>1,170.40 (T10)</td>
+          <td>1,712.72 (T16)</td>
+        </tr>
+        <tr>
+          <td>الميدات الأرضية (GB1)</td>
+          <td>156.00 م</td>
+          <td>0.30 × 0.60</td>
+          <td>8T16</td>
+          <td>T10@125/150</td>
+          <td>1,227.60 (T10)</td>
+          <td>1,971.84 (T16)</td>
+        </tr>
+        <tr>
+          <td>الخزانات الأرضية</td>
+          <td>4</td>
+          <td>محيط 19.4 م</td>
+          <td>T12@200 / T12@150</td>
+          <td>T10@200</td>
+          <td>3,700.70 (T12+T10)</td>
+          <td>---</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dashboard-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="card" style="border-top-color: #34495e; padding: 15px;">
+        <h3 style="font-size: 13px;">حديد T10 (كانات/حوائط)</h3>
+        <p style="font-size: 20px; color: #34495e;">4.66 <span style="font-size: 12px;">طن</span></p>
+      </div>
+      <div class="card" style="border-top-color: #3498db; padding: 15px;">
+        <h3 style="font-size: 13px;">حديد T12 (قواعد/لبشة)</h3>
+        <p style="font-size: 20px; color: #2980b9;">4.67 <span style="font-size: 12px;">طن</span></p>
+      </div>
+      <div class="card" style="border-top-color: #e67e22; padding: 15px;">
+        <h3 style="font-size: 13px;">حديد T16 (ميدات/رقاب)</h3>
+        <p style="font-size: 20px; color: #d35400;">4.63 <span style="font-size: 12px;">طن</span></p>
+      </div>
+      <div class="card" style="border-top-color: #9b59b6; padding: 15px;">
+        <h3 style="font-size: 13px;">حديد T18 (رقاب Pc)</h3>
+        <p style="font-size: 20px; color: #8e44ad;">2.29 <span style="font-size: 12px;">طن</span></p>
+      </div>
+    </div>
+    <div class="total-row" style="background: #27ae60 !important; color: #fff; padding: 15px; border-radius: 5px; text-align: center; margin-top: 15px; font-size: 16px;">
+      إجمالي طلبية الحديد لمنطقة هنجر المعدات (شاملة 5% هالك وتقطيع ووصلات) = 16.25 طن
+    </div>
   </div>
 
 </div>
