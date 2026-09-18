@@ -57,7 +57,7 @@
   h3.sub-title { margin-top: 25px; font-size: 16px; background: var(--table-row-hover); padding: 8px 12px; border-right: 4px solid var(--secondary); }
   
   table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-  th, td { border: 1px solid var(--border); padding: 10px; text-align: center; vertical-align: middle; }
+  th, td { border: 1px solid var(--border); padding: 8px; text-align: center; vertical-align: middle; }
   th { background-color: var(--table-header-bg); color: var(--primary); font-weight: bold; }
   tr { background-color: var(--card-bg); }
   tr:nth-child(even) { background-color: var(--table-row-even); }
@@ -119,19 +119,19 @@
     <div class="dashboard-grid">
       <div class="card">
         <h3>كميات الحفر والردم</h3>
-        <p>11,626.60 <span style="display:inline;">م³</span></p>
+        <p>11,626.60 م³</p>
       </div>
       <div class="card">
         <h3>إجمالي الخرسانات (C+S)</h3>
-        <p>3,309.76 <span style="display:inline;">م³</span></p>
+        <p>3,309.76 م³</p>
       </div>
       <div class="card card-total-cost">
         <h3>التكلفة الإجمالية التقديرية</h3>
-        <p id="globalTotalCost">0 <span style="display:inline;">ج.م</span></p>
+        <p id="globalTotalCost">0 ج.م</p>
       </div>
       <div class="card card-steel">
         <h3>إجمالي حديد التسليح</h3>
-        <p>163.21 <span style="display:inline;">طن</span></p>
+        <p>163.21 طن</p>
       </div>
     </div>
     <div class="chart-container"><canvas id="progressChart"></canvas></div>
@@ -251,11 +251,6 @@
           <td class="editable price" contenteditable="true" data-store="price_rc">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="cw_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_rc_prog" data-bar="cw_rc_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row building-row" style="display:none;">
-          <td class="highlight">خرسانة أرضيات (S.O.G)</td><td class="qty">0.00</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
-          <td><span class="editable prog-val" contenteditable="true" data-store="cw_sog_prog" data-bar="cw_sog_bar">0</span></td>
-        </tr>
         <tr class="calc-row building-row">
           <td>حديد التسليح</td><td class="qty">16.70</td><td>طن</td>
           <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
@@ -270,38 +265,43 @@
     <div style="overflow-x: auto;">
       <table class="calc-sheet">
         <thead>
-          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك</th><th>الكمية الإجمالية</th></tr>
+          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك (م)</th><th>الكمية الإجمالية</th></tr>
         </thead>
         <tbody>
-          <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني والعزل</td></tr>
-          <tr><td>حفر لزوم الأساسات[span_9](start_span)[span_9](end_span)</td><td>م³</td><td>1</td><td>---</td><td>مساحة 318.2</td><td>2.50</td><td>795.51</td></tr>
-          <tr><td>خصم الخرسانات المدفونة[span_10](start_span)[span_10](end_span)</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(125.34)</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك[span_11](start_span)[span_11](end_span)</td><td>670.17 م³</td></tr>
-          <tr><td>مشمع بولي إيثيلين (أرضيات+ميدات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>377.90</td></tr>
-          <tr><td>عزل بيتوميني للأساسات[span_12](start_span)[span_12](end_span)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>424.78</td></tr>
-          <tr><td>عزل بيتوميني لقصية الردم[span_13](start_span)[span_13](end_span)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>338.30</td></tr>
+          <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني</td></tr>
+          <tr><td>حفر لزوم الأساسات</td><td>م³</td><td>1</td><td>---</td><td>مساحة 318.2</td><td>2.50</td><td>795.51</td></tr>
+          <tr><td>خصم الخرسانات المدفونة</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(125.34)</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك</td><td>670.17 م³</td></tr>
           <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>99.50</td><td>0.25</td><td>1.70</td><td>42.29</td></tr>
+
+          <tr class="sub-item"><td colspan="7">2. أعمال العزل والمشمع</td></tr>
+          <tr><td>مشمع بولي إيثيلين (أرضيات)</td><td>م²</td><td>1</td><td>---</td><td>مساحة</td><td>---</td><td>318.20</td></tr>
+          <tr><td>مشمع بولي إيثيلين (ميدات)</td><td>م²</td><td>1</td><td>99.50</td><td>0.60</td><td>---</td><td>59.70</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي مشمع البولي إيثيلين</td><td>377.90 م²</td></tr>
+          <tr><td>عزل بيتوميني (قواعد ورقاب وميدات وخزانات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>424.78</td></tr>
+          <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>م²</td><td>2</td><td>99.50</td><td>---</td><td>1.70</td><td>338.30</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي العزل البيتوميني</td><td>763.08 م²</td></tr>
           
-          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)[span_14](start_span)[span_14](end_span)</td></tr>
+          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة العادية (P.C)</td></tr>
           <tr><td>قواعد عادية F1</td><td>م³</td><td>3</td><td>2.00</td><td>1.80</td><td>0.30</td><td>3.24</td></tr>
           <tr><td>قواعد عادية *F1</td><td>م³</td><td>3</td><td>2.30</td><td>2.10</td><td>0.30</td><td>4.35</td></tr>
           <tr><td>قواعد عادية F2</td><td>م³</td><td>4</td><td>2.40</td><td>2.40</td><td>0.30</td><td>6.91</td></tr>
           <tr><td>قواعد عادية F3</td><td>م³</td><td>8</td><td>2.50</td><td>2.30</td><td>0.30</td><td>13.80</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية</td><td>28.30 م³</td></tr>
 
-          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)[span_15](start_span)[span_15](end_span)</td></tr>
-          <tr><td>قواعد مسلحة منفصلة</td><td>م³</td><td>18</td><td>---</td><td>---</td><td>متغير</td><td>25.75</td></tr>
+          <tr class="sub-item"><td colspan="7">4. أعمال الخرسانة المسلحة (R.C)</td></tr>
+          <tr><td>قواعد مسلحة منفصلة (F1, *F1, F2, F3)</td><td>م³</td><td>18</td><td>---</td><td>---</td><td>0.50</td><td>25.75</td></tr>
           <tr><td>أعمدة الدور الأرضي والأول</td><td>م³</td><td>18</td><td>---</td><td>---</td><td>متغير</td><td>37.50</td></tr>
-          <tr><td>ميدات أرضية</td><td>م³</td><td>1</td><td>99.50</td><td>متغير</td><td>متغير</td><td>17.41</td></tr>
+          <tr><td>ميدات أرضية (Gb1, Gb2, Gb3)</td><td>م³</td><td>1</td><td>99.50</td><td>0.25</td><td>0.70</td><td>17.41</td></tr>
           <tr><td>كمر الدور الأول B1</td><td>م³</td><td>1</td><td>130.00</td><td>0.25</td><td>0.70</td><td>22.75</td></tr>
           <tr><td>خزانات أرضية</td><td>م³</td><td>4</td><td>---</td><td>---</td><td>---</td><td>47.40</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة</td><td>150.81 م³</td></tr>
 
-          <tr class="sub-item"><td colspan="7">4. حصر حديد التسليح التفصيلي (BBS)[span_16](start_span)[span_16](end_span)</td></tr>
-          <tr><td>الأساسات والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
-          <tr><td>الأعمدة والميدات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
-          <tr><td>الأسقف والكمرات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح</td><td>16.70 طن</td></tr>
+          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)</td></tr>
+          <tr><td>الأساسات والخزانات (T10, T12)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
+          <tr><td>الأعمدة والميدات (T10, T16, T18)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
+          <tr><td>الأسقف والكمرات (Y8, T10, T12, T16)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>16.70 طن</td></tr>
         </tbody>
       </table>
     </div>
@@ -372,38 +372,40 @@
     <div style="overflow-x: auto;">
       <table class="calc-sheet">
         <thead>
-          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك</th><th>الكمية (للهنجرين)</th></tr>
+          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك</th><th>الكمية (للهنجر الواحد)</th></tr>
         </thead>
         <tbody>
           <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني والعزل</td></tr>
-          <tr><td>حفر الأساسات بنظام الشرائح[span_17](start_span)[span_17](end_span)</td><td>م³</td><td>2</td><td>---</td><td>مساحة 1315</td><td>1.30</td><td>3420.00</td></tr>
-          <tr><td>خصم الخرسانات المدفونة[span_18](start_span)[span_18](end_span)</td><td>م³</td><td>2</td><td>---</td><td>---</td><td>---</td><td>(575.36)</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك[span_19](start_span)[span_19](end_span)</td><td>2844.64 م³</td></tr>
-          <tr><td>مشمع بولي إيثيلين</td><td>م²</td><td>2</td><td>---</td><td>---</td><td>---</td><td>8388.80</td></tr>
-          <tr><td>عزل بيتوميني[span_20](start_span)[span_20](end_span)</td><td>م²</td><td>2</td><td>---</td><td>---</td><td>---</td><td>2380.50</td></tr>
-          <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>2</td><td>324.00</td><td>0.25</td><td>0.50</td><td>81.00</td></tr>
+          <tr><td>حفر الأساسات بنظام الشرائح</td><td>م³</td><td>1</td><td>---</td><td>مساحة 1315</td><td>1.30</td><td>1710.00</td></tr>
+          <tr><td>خصم الخرسانات المدفونة</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(287.68)</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك (للهنجر الواحد)</td><td>1422.32 م³</td></tr>
+          <tr><td>مشمع بولي إيثيلين (أرضيات)</td><td>م²</td><td>1</td><td>---</td><td>مساحة</td><td>---</td><td>4000.00</td></tr>
+          <tr><td>مشمع بولي إيثيلين (ميدات)</td><td>م²</td><td>1</td><td>324.00</td><td>0.60</td><td>---</td><td>194.40</td></tr>
+          <tr><td>عزل بيتوميني (قواعد وميدات ورقاب)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>866.25</td></tr>
+          <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>م²</td><td>2</td><td>324.00</td><td>---</td><td>0.50</td><td>324.00</td></tr>
+          <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>324.00</td><td>0.25</td><td>0.50</td><td>40.50</td></tr>
           
-          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)[span_21](start_span)[span_21](end_span)</td></tr>
-          <tr><td>عادية قواعد F</td><td>م³</td><td>8</td><td>1.40</td><td>1.40</td><td>0.30</td><td>4.70</td></tr>
-          <tr><td>عادية قواعد F1</td><td>م³</td><td>28</td><td>2.50</td><td>2.10</td><td>0.30</td><td>44.10</td></tr>
-          <tr><td>عادية قواعد F2</td><td>م³</td><td>30</td><td>2.20</td><td>1.80</td><td>0.30</td><td>35.64</td></tr>
-          <tr><td>عادية قواعد F3</td><td>م³</td><td>32</td><td>3.80</td><td>3.20</td><td>0.30</td><td>116.74</td></tr>
-          <tr><td>عادية قواعد F4</td><td>م³</td><td>16</td><td>2.60</td><td>2.00</td><td>0.30</td><td>24.96</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية</td><td>226.14 م³</td></tr>
+          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)</td></tr>
+          <tr><td>عادية قواعد F</td><td>م³</td><td>4</td><td>1.40</td><td>1.40</td><td>0.30</td><td>2.35</td></tr>
+          <tr><td>عادية قواعد F1</td><td>م³</td><td>14</td><td>2.50</td><td>2.10</td><td>0.30</td><td>22.05</td></tr>
+          <tr><td>عادية قواعد F2</td><td>م³</td><td>15</td><td>2.20</td><td>1.80</td><td>0.30</td><td>17.82</td></tr>
+          <tr><td>عادية قواعد F3</td><td>م³</td><td>16</td><td>3.80</td><td>3.20</td><td>0.30</td><td>58.37</td></tr>
+          <tr><td>عادية قواعد F4</td><td>م³</td><td>8</td><td>2.60</td><td>2.00</td><td>0.30</td><td>12.48</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية (للهنجر الواحد)</td><td>113.07 م³</td></tr>
 
-          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)[span_22](start_span)[span_22](end_span)</td></tr>
-          <tr><td>قواعد مسلحة (F لـ F4)</td><td>م³</td><td>114</td><td>---</td><td>---</td><td>متغير</td><td>226.27</td></tr>
-          <tr><td>رقاب أعمدة</td><td>م³</td><td>114</td><td>---</td><td>---</td><td>متغير</td><td>25.75</td></tr>
-          <tr><td>ميدات أرضية GB1</td><td>م³</td><td>2</td><td>324.00</td><td>0.30</td><td>0.50</td><td>97.20</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة</td><td>349.22 م³</td></tr>
+          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)</td></tr>
+          <tr><td>قواعد مسلحة (F لـ F4)</td><td>م³</td><td>57</td><td>---</td><td>---</td><td>متغير</td><td>113.13</td></tr>
+          <tr><td>رقاب أعمدة</td><td>م³</td><td>57</td><td>---</td><td>---</td><td>متغير</td><td>12.88</td></tr>
+          <tr><td>ميدات أرضية GB1</td><td>م³</td><td>1</td><td>324.00</td><td>0.30</td><td>0.50</td><td>48.60</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة (للهنجر الواحد)</td><td>174.61 م³</td></tr>
 
           <tr class="sub-item"><td colspan="7">4. خرسانة الأرضيات الممسوسة (S.O.G)</td></tr>
-          <tr><td>أرضيات خرسانية</td><td>م³</td><td>2</td><td>---</td><td>مساحة 4000</td><td>0.25</td><td>2000.00</td></tr>
+          <tr><td>أرضيات خرسانية</td><td>م³</td><td>1</td><td>---</td><td>مساحة 4000</td><td>0.25</td><td>1000.00</td></tr>
 
-          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)[span_23](start_span)[span_23](end_span)</td></tr>
-          <tr><td>القواعد والميدات والرقاب</td><td>كجم</td><td>2</td><td>---</td><td>---</td><td>---</td><td>30,580</td></tr>
-          <tr><td>شبكة الأرضيات S.O.G</td><td>كجم</td><td>2</td><td>---</td><td>---</td><td>---</td><td>71,040</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح</td><td>108.33 طن</td></tr>
+          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS) للهنجر الواحد</td></tr>
+          <tr><td>القواعد والميدات والرقاب</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>15,290.00</td></tr>
+          <tr><td>شبكة الأرضيات S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>35,520.00</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (مضروب × 2 للهنجرين + هالك)</td><td>108.33 طن</td></tr>
         </tbody>
       </table>
     </div>
@@ -478,20 +480,22 @@
         </thead>
         <tbody>
           <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني والعزل</td></tr>
-          <tr><td>حفر لزوم الأساسات[span_24](start_span)[span_24](end_span)</td><td>م³</td><td>1</td><td>---</td><td>مساحة 1040</td><td>2.00</td><td>2080.00</td></tr>
-          <tr><td>خصم الخرسانات المدفونة[span_25](start_span)[span_25](end_span)</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(263.72)</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك[span_26](start_span)[span_26](end_span)</td><td>1816.28 م³</td></tr>
-          <tr><td>مشمع بولي إيثيلين</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>1286.60</td></tr>
-          <tr><td>عزل بيتوميني[span_27](start_span)[span_27](end_span)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>1990.66</td></tr>
+          <tr><td>حفر لزوم الأساسات</td><td>م³</td><td>1</td><td>---</td><td>مساحة 1040</td><td>2.00</td><td>2080.00</td></tr>
+          <tr><td>خصم الخرسانات المدفونة</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(263.72)</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك</td><td>1816.28 م³</td></tr>
+          <tr><td>مشمع بولي إيثيلين (أرضيات)</td><td>م²</td><td>1</td><td>---</td><td>مساحة</td><td>---</td><td>1040.00</td></tr>
+          <tr><td>مشمع بولي إيثيلين (ميدات)</td><td>م²</td><td>1</td><td>411.00</td><td>0.60</td><td>---</td><td>246.60</td></tr>
+          <tr><td>عزل بيتوميني (قواعد ورقاب وميدات وخزانات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>1045.36</td></tr>
+          <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>م²</td><td>2</td><td>411.00</td><td>---</td><td>1.15</td><td>945.30</td></tr>
           <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>411.00</td><td>0.25</td><td>1.15</td><td>53.16</td></tr>
 
-          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)[span_28](start_span)[span_28](end_span)</td></tr>
+          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)</td></tr>
           <tr><td>عادية قواعد F0</td><td>م³</td><td>18</td><td>1.40</td><td>1.40</td><td>0.30</td><td>10.58</td></tr>
           <tr><td>عادية قواعد F1</td><td>م³</td><td>20</td><td>1.70</td><td>1.70</td><td>0.30</td><td>17.34</td></tr>
           <tr><td>عادية قواعد F2</td><td>م³</td><td>26</td><td>2.20</td><td>2.20</td><td>0.30</td><td>37.75</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية</td><td>65.68 م³</td></tr>
 
-          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)[span_29](start_span)[span_29](end_span)</td></tr>
+          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)</td></tr>
           <tr><td>قواعد مسلحة (F0, F1, F2)</td><td>م³</td><td>64</td><td>---</td><td>---</td><td>متغير</td><td>59.06</td></tr>
           <tr><td>رقاب أعمدة (C0, C1, Pc)</td><td>م³</td><td>64</td><td>---</td><td>---</td><td>متغير</td><td>39.73</td></tr>
           <tr><td>ميدات وكمرات (Gb0, Gb1, B1)</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>74.14</td></tr>
@@ -501,11 +505,11 @@
           <tr class="sub-item"><td colspan="7">4. خرسانة الأرضيات الممسوسة (S.O.G)</td></tr>
           <tr><td>أرضيات خرسانية</td><td>م³</td><td>1</td><td>---</td><td>مساحة 1040</td><td>0.25</td><td>260.00</td></tr>
 
-          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)[span_30](start_span)[span_30](end_span)</td></tr>
+          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)</td></tr>
           <tr><td>القواعد والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>5,409.2</td></tr>
           <tr><td>الميدات والأعمدة</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>10,084.2</td></tr>
           <tr><td>أرضيات الهنجر S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>20,870.0</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح</td><td>38.18 طن</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>38.18 طن</td></tr>
         </tbody>
       </table>
     </div>
@@ -548,16 +552,19 @@ const boqData = {
   },
   carwash: {
     "أعمال الحفر": { value: "795.51", unit: "م³" }, "أعمال الردم": { value: "670.17", unit: "م³" },
+    "مشمع بولي إيثيلين": { value: "377.90", unit: "م²" }, "العزل البيتوميني": { value: "763.08", unit: "م²" },
     "خرسانة عادية": { value: "28.30", unit: "م³" }, "خرسانة مسلحة": { value: "150.81", unit: "م³" },
     "حديد التسليح": { value: "16.70", unit: "طن" }
   },
   sacks: {
     "أعمال الحفر": { value: "3,420.00", unit: "م³" }, "أعمال الردم": { value: "2,844.64", unit: "م³" },
+    "مشمع بولي إيثيلين": { value: "8,388.80", unit: "م²" }, "العزل البيتوميني": { value: "2,380.50", unit: "م²" },
     "خرسانة عادية": { value: "226.14", unit: "م³" }, "خرسانة مسلحة": { value: "349.22", unit: "م³" },
     "خرسانة أرضيات (S.O.G)": { value: "2000.00", unit: "م³" }, "حديد التسليح": { value: "108.33", unit: "طن" }
   },
   equipment: {
     "أعمال الحفر": { value: "2,080.00", unit: "م³" }, "أعمال الردم": { value: "1,816.28", unit: "م³" },
+    "مشمع بولي إيثيلين": { value: "1,286.60", unit: "م²" }, "العزل البيتوميني": { value: "1,990.66", unit: "م²" },
     "خرسانة عادية": { value: "65.68", unit: "م³" }, "خرسانة مسلحة": { value: "229.61", unit: "م³" },
     "خرسانة أرضيات (S.O.G)": { value: "260.00", unit: "م³" }, "حديد التسليح": { value: "38.18", unit: "طن" }
   }
@@ -585,7 +592,7 @@ function showResult() {
   if (bSelect && itemKey && boqData[bSelect][itemKey]) {
     const data = boqData[bSelect][itemKey];
     resultDiv.style.display = "block";
-    resultDiv.innerHTML = `كمية <strong>${itemKey}</strong> هي:<br> <span>${data.value}</span> ${data.unit}`;
+    resultDiv.innerHTML = `كمية <strong>${itemKey}</strong> هي:<br> <span style="color:#8e44ad; font-size:26px; font-weight:bold;">${data.value}</span> ${data.unit}`;
   } else { resultDiv.style.display = "none"; }
 }
 
