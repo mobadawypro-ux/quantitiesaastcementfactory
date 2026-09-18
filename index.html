@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم وحصر الكميات التفصيلي الشامل - TABS</title>
+<style>
+  :root {
+    --primary-color: #004085;
+    --secondary-color: #0056b3;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #dee2e6;
+    --hover-bg: #f8f9fa;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+  
+  .container {
+    max-width: 1250px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 26px;
+  }
+
+  /* Tabs Styling */
+  .tab {
+    overflow: hidden;
+    border-bottom: 3px solid var(--primary-color);
+    background-color: #e9ecef;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+  }
+  .tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px 20px;
+    transition: 0.3s;
+    font-size: 15px;
+    font-weight: bold;
+    color: #495057;
+    flex-grow: 1;
+  }
+  .tab button:hover {
+    background-color: #d1d8e0;
+    color: var(--primary-color);
+  }
+  .tab button.active {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  .tabcontent {
+    display: none;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    animation: fadeEffect 0.5s;
+  }
+  @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
+
+  /* Dashboard Cards */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    text-align: center;
+    border-top: 5px solid var(--primary-color);
+  }
+  .card h3 { margin: 0 0 10px 0; color: #555; font-size: 16px; }
+  .card p { margin: 0; font-size: 28px; font-weight: bold; color: var(--primary-color); }
+  .card span { font-size: 13px; color: #888; display: block; margin-top: 5px; }
+  
+  .card-highlight { border-top: 5px solid #d35400; }
+  .card-highlight p { color: #d35400; }
+
+  /* Detailed Tables */
+  h2.section-title {
+    margin-top: 35px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+    font-size: 20px;
+  }
+  h3.sub-title {
+    margin-top: 25px;
+    color: #444;
+    font-size: 16px;
+    background: #f1f3f5;
+    padding: 8px 12px;
+    border-right: 4px solid var(--secondary-color);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+  th, td {
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  th {
+    background-color: #e9ecef;
+    color: #333;
+    font-weight: bold;
+  }
+  tr:nth-child(even) { background-color: #fdfdfd; }
+  tr:hover { background-color: var(--hover-bg); }
+  .total-row {
+    font-weight: bold;
+    background-color: #d6d8db !important;
+    color: #000;
+  }
+  .highlight { color: var(--primary-color); font-weight: bold; }
+  .note { font-size: 12px; color: #e74c3c; display: block; margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>جدول حصر الكميات الهندسي التفصيلي المحدث (BOQ)</h1>
+
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'Dashboard')" id="defaultOpen">اللوحة الرئيسية</button>
+    <button class="tablinks" onclick="openTab(event, 'CarWash')">تفاصيل المغسلة</button>
+    <button class="tablinks" onclick="openTab(event, 'SacksWarehouse')">تفاصيل مخازن الشكاير</button>
+    <button class="tablinks" onclick="openTab(event, 'EquipmentHangar')">تفاصيل هنجر المعدات</button>
+  </div>
+
+  <!-- ================= DASHBOARD TAB ================= -->
+  <div id="Dashboard" class="tabcontent">
+    <h2 style="text-align: center; color: #333;">إجمالي كميات المشروع المجمعة</h2>
+    <div class="dashboard-grid">
+      <div class="card">
+        <h3>إجمالي أعمال الحفر</h3>
+        <p>6,295.51</p>
+        <span>متر مكعب (م³)</span>
+      </div>
+      <div class="card">
+        <h3>إجمالي أعمال الردم</h3>
+        <p>5,331.09</p>
+        <span>متر مكعب (م³)</span>
+      </div>
+      <div class="card card-highlight">
+        <h3>إجمالي مشمع البولي إيثيلين</h3>
+        <p>10,053.30</p>
+        <span>متر مسطح هندسي صافي (م²)</span>
+      </div>
+      <div class="card">
+        <h3>إجمالي العزل البيتوميني</h3>
+        <p>5,134.89</p>
+        <span>متر مسطح (م² - شامل قصية الردم)</span>
+      </div>
+      <div class="card">
+        <h3>مباني قصية الردم (25 سم)</h3>
+        <p>176.45</p>
+        <span>متر مكعب (م³)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CAR WASH TAB ================= -->
+  <div id="CarWash" class="tabcontent">
+    <h2 class="section-title">الحصر التفصيلي لمبنى المغسلة (Car Wash)</h2>
+    
+    <h3 class="sub-title">1. الأعمال الترابية وعزل البولي إيثيلين</h3>
+    <table>
+      <tr><th>البند</th><th>المساحة (م²) / الأبعاد</th><th>العمق/الارتفاع (م)</th><th>إجمالي الكمية</th></tr>
+      <tr><td>حفر لزوم الأساسات</td><td>318.20 م²</td><td>2.50 م</td><td>795.506 م³</td></tr>
+      <tr><td>حجم الخرسانات المخصومة للردم</td><td>قواعد، ميدات، خزانات ورقاب</td><td>---</td><td>125.337 م³</td></tr>
+      <tr class="total-row"><td>صافي كمية الردم المدموك</td><td colspan="2">795.506 - 125.337</td><td>670.169 م³</td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات</td><td>---</td><td class="highlight">318.20 م² <span class="note">(تنفيذي: 350.02 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 99.5 م</td><td>---</td><td class="highlight">59.70 م² <span class="note">(تنفيذي: 65.67 م²)</span></td></tr>
+    </table>
+
+    <h3 class="sub-title">2. مباني قصية الردم وعزلها البيتوميني</h3>
+    <table>
+      <tr><th>البند</th><th>التفاصيل والأبعاد</th><th>الكمية (م³)</th><th>مسطح العزل البيتوميني (للوجهين)</th></tr>
+      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 99.5 م × سمك 0.25 م × ارتفاع 1.70 م</td><td class="highlight">42.29 م³</td><td>---</td></tr>
+      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 99.5 م × ارتفاع 1.70 م × 2)</td><td>---</td><td class="highlight">338.30 م²</td></tr>
+    </table>
+
+    <h3 class="sub-title">3. أعمال الخرسانات والعزل البيتوميني الأساسية</h3>
+    <table>
+      <tr><th>العنصر الإنشائي</th><th>النماذج / الأعداد</th><th>كمية الخرسانة (م³)</th><th>مسطح العزل البيتوميني (م²)</th></tr>
+      <tr><td>الخرسانة العادية للقواعد</td><td>F1(3), F1*(3), F2(4), F3(8)</td><td>28.299</td><td>---</td></tr>
+      <tr><td>الخرسانة المسلحة للقواعد</td><td>F1(3), F1*(3), F2(4), F3(8)</td><td>25.745</td><td>108.07</td></tr>
+      <tr><td>رقاب الأعمدة (مدفونة)</td><td>C1(6), C2(4), C3(8)</td><td>(جزء من 37.5)</td><td>55.04</td></tr>
+      <tr><td>أعمدة الدور الأرضي والأول</td><td>C1, C2, C3 بمناسيب مختلفة</td><td>37.500</td><td>---</td></tr>
+      <tr><td>الميدات الأرضية (الوجهين)</td><td>Gb1, Gb2, Gb3 بطول 99.5 م</td><td>17.413</td><td>139.30</td></tr>
+      <tr><td>كمر الدور الأول</td><td>B1 بطول 130 م</td><td>22.750</td><td>---</td></tr>
+      <tr><td>الخزانات الأرضية (4 خزانات)</td><td>حوائط 30.6 + أرضية 16.8</td><td>47.400</td><td>122.40</td></tr>
+      <tr class="total-row"><td>الإجمالي الكلي للخرسانات والعزل بالمغسلة</td><td>---</td><td class="highlight">179.107 م³</td><td class="highlight">424.78 م² (بخلاف قصية الردم)</td></tr>
+    </table>
+  </div>
+
+  <!-- ================= SACKS WAREHOUSE TAB ================= -->
+  <div id="SacksWarehouse" class="tabcontent">
+    <h2 class="section-title">الحصر التفصيلي لمخازن الشكاير (عدد 2 هنجر)</h2>
+    
+    <h3 class="sub-title">1. الأعمال الترابية وعزل البولي إيثيلين</h3>
+    <table>
+      <tr><th>البند</th><th>التفاصيل للهنجر الواحد</th><th>كمية الهنجر</th><th>إجمالي (2) هنجر</th></tr>
+      <tr><td>أعمال الحفر</td><td>حفر شرائح وقواعد (1315 م² × عمق 1.30 م)</td><td>1,710.000 م³</td><td class="highlight">3,420.000 م³</td></tr>
+      <tr><td>أعمال الردم</td><td>الحفر (1710) - الخرسانات المدفونة (287.67)</td><td>1,422.321 م³</td><td class="highlight">2,844.642 م³</td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل الأرضيات (لكامل مسطح الهنجر 4000 م²)</td><td>4,000.00 م²</td><td class="highlight">8,000.00 م² <span class="note">(تنفيذي: 8,800.00 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 324 م للهنجر</td><td>194.40 م²</td><td class="highlight">388.80 م² <span class="note">(تنفيذي: 427.68 م²)</span></td></tr>
+    </table>
+
+    <h3 class="sub-title">2. مباني قصية الردم وعزلها البيتوميني</h3>
+    <table>
+      <tr><th>البند</th><th>التفاصيل والأبعاد</th><th>الكمية (م³)</th><th>مسطح العزل البيتوميني (للوجهين)</th></tr>
+      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 648 م × سمك 0.25 م × ارتفاع 0.50 م</td><td class="highlight">81.00 م³</td><td>---</td></tr>
+      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 648 م × ارتفاع 0.50 م × 2)</td><td>---</td><td class="highlight">648.00 م²</td></tr>
+    </table>
+
+    <h3 class="sub-title">3. الخرسانات والعزل الأساسية (للهنجر الواحد)</h3>
+    <table>
+      <tr><th>العنصر الإنشائي</th><th>تفاصيل النماذج والأعداد</th><th>الخرسانة (م³)</th><th>مسطح العزل البيتوميني (م²)</th></tr>
+      <tr><td>الخرسانة العادية P.C</td><td>F(4), F1(14), F2(15), F3(16), F4(8)</td><td>113.070</td><td>---</td></tr>
+      <tr><td>الخرسانة المسلحة R.C</td><td>F(4), F1(14), F2(15), F3(16), F4(8)</td><td>113.134</td><td>428.95</td></tr>
+      <tr><td>رقاب الأعمدة</td><td>C1(16), C2(29), C3(12)</td><td>12.875</td><td>113.30</td></tr>
+      <tr><td>الميدات الأرضية</td><td>GB1 بطول 324 متر</td><td>48.600</td><td>324.00</td></tr>
+      <tr class="total-row"><td>الإجمالي الكلي (عدد 2 هنجر)</td><td>يضرب في 2</td><td class="highlight">575.358 م³</td><td class="highlight">1,732.50 م² (بخلاف قصية الردم)</td></tr>
+    </table>
+  </div>
+
+  <!-- ================= EQUIPMENT HANGAR TAB ================= -->
+  <div id="EquipmentHangar" class="tabcontent">
+    <h2 class="section-title">الحصر التفصيلي لهنجر المعدات</h2>
+    
+    <h3 class="sub-title">1. الأعمال الترابية وعزل البولي إيثيلين</h3>
+    <table>
+      <tr><th>البند</th><th>التفاصيل</th><th>إجمالي الكمية</th></tr>
+      <tr><td>أعمال الحفر</td><td>مساحة 1040 م² × عمق 2.00 م</td><td class="highlight">2,080.000 م³</td></tr>
+      <tr><td>أعمال الردم</td><td>الحفر (2080) - المخصوم المدفون (263.72)</td><td class="highlight">1,816.279 م³</td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات (1040 م²)</td><td class="highlight">1,040.00 م² <span class="note">(تنفيذي بالركوب: 1,144.00 م²)</span></td></tr>
+      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول مستنتج 411 م</td><td class="highlight">246.60 م² <span class="note">(تنفيذي بالركوب: 271.26 م²)</span></td></tr>
+    </table>
+
+    <h3 class="sub-title">2. مباني قصية الردم وعزلها البيتوميني</h3>
+    <table>
+      <tr><th>البند</th><th>التفاصيل والأبعاد</th><th>الكمية (م³)</th><th>مسطح العزل البيتوميني (للوجهين)</th></tr>
+      <tr><td>مباني قصية الردم (طوب أسمنتي 25 سم)</td><td>أطوال 411 م × سمك 0.25 م × ارتفاع 1.15 م</td><td class="highlight">53.16 م³</td><td>---</td></tr>
+      <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>مساحة الحوائط من الوجهين (طول 411 م × ارتفاع 1.15 م × 2)</td><td>---</td><td class="highlight">945.30 م²</td></tr>
+    </table>
+
+    <h3 class="sub-title">3. تفصيل الخرسانات والعزل البيتوميني الأساسية</h3>
+    <table>
+      <tr><th>العنصر الإنشائي</th><th>تفاصيل النماذج والأعداد</th><th>كمية الخرسانة (م³)</th><th>مسطح العزل البيتوميني (م²)</th></tr>
+      <tr><td>الخرسانة العادية P.C</td><td>F0(18), F1(20), F2(26)</td><td>65.676</td><td>---</td></tr>
+      <tr><td>الخرسانة المسلحة R.C</td><td>F0(18), F1(20), F2(26)</td><td>59.064</td><td>266.68</td></tr>
+      <tr><td>الأعمدة والرقاب</td><td>C0(18), C1(20), Pc(26)</td><td>39.725</td><td>212.00</td></tr>
+      <tr><td>الميدات الأرضية والكمرات</td><td>B1(16.8), Gb0(33.8), Gb1(23.4)</td><td>74.141</td><td>427.00 (للميدات فقط)</td></tr>
+      <tr><td>الخزانات الأرضية (4 خزانات)</td><td>حوائط 34.92 + أرضية 21.76</td><td>56.680</td><td>139.68</td></tr>
+      <tr class="total-row"><td>الإجمالي الكلي لهنجر المعدات</td><td>---</td><td class="highlight">295.286 م³</td><td class="highlight">1,045.36 م² (بخلاف قصية الردم)</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+</script>
+
+</body>
+</html>
