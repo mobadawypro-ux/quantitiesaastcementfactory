@@ -2,150 +2,59 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<!-- تمت إضافة ID للـ viewport للتحكم به برمجياً لوضع سطح المكتب -->
 <meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نظام إدارة وحصر كميات المشروع - الإصدار الشامل</title>
-<!-- مكتبة Chart.js للرسوم البيانية -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
-    --primary: #004085;
-    --secondary: #0056b3;
-    --accent: #d35400;
-    --success: #27ae60;
-    --bg: #f4f7f6;
-    --card-bg: #ffffff;
-    --text-color: #333333;
-    --border: #dee2e6;
-    --table-header-bg: #e9ecef;
-    --table-row-even: #fdfdfd;
-    --table-row-hover: #f1f2f6;
-    --total-row-bg: #d6d8db;
-    --editable-bg: #fffde7;
+    --primary: #004085; --secondary: #0056b3; --accent: #d35400; --success: #27ae60;
+    --bg: #f4f7f6; --card-bg: #ffffff; --text-color: #333333; --border: #dee2e6;
+    --table-header-bg: #e9ecef; --table-row-even: #fdfdfd; --table-row-hover: #f1f2f6;
+    --total-row-bg: #d6d8db; --editable-bg: #fffde7;
   }
   
-  /* ألوان الوضع الليلي (Dark Mode) */
   body.dark-mode {
-    --primary: #66b0ff;
-    --secondary: #4da3ff;
-    --accent: #e67e22;
-    --success: #2ecc71;
-    --bg: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --border: #333333;
-    --table-header-bg: #2a2a2a;
-    --table-row-even: #242424;
-    --table-row-hover: #333333;
-    --total-row-bg: #111111;
-    --editable-bg: #3a321a;
+    --primary: #66b0ff; --secondary: #4da3ff; --accent: #e67e22; --success: #2ecc71;
+    --bg: #121212; --card-bg: #1e1e1e; --text-color: #e0e0e0; --border: #333333;
+    --table-header-bg: #2a2a2a; --table-row-even: #242424; --table-row-hover: #333333;
+    --total-row-bg: #111111; --editable-bg: #3a321a;
   }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background-color: var(--bg);
-    color: var(--text-color);
-    margin: 0;
-    padding: 20px;
-    font-size: 13.5px;
-    transition: background-color 0.3s, color 0.3s;
-  }
+  body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background-color: var(--bg); color: var(--text-color); margin: 0; padding: 20px; font-size: 13.5px; transition: background-color 0.3s, color 0.3s; }
+  .container { max-width: 1300px; margin: 0 auto; background: var(--card-bg); padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
   
-  .container {
-    max-width: 1300px;
-    margin: 0 auto;
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: background-color 0.3s;
-  }
-  
-  /* أزرار التحكم العلوية (ليلي / سطح مكتب) */
-  .top-controls-bar {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  .top-btn {
-    background: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border);
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: 0.3s;
-  }
+  .top-controls-bar { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
+  .top-btn { background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border); padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
   .top-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
   h1 { text-align: center; color: var(--primary); margin-bottom: 25px; font-size: 26px; }
 
-  /* Tabs */
-  .tab {
-    overflow: hidden;
-    border-bottom: 3px solid var(--primary);
-    background-color: var(--table-header-bg);
-    border-radius: 8px 8px 0 0;
-    display: flex;
-  }
-  .tab button {
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
-    padding: 15px;
-    font-size: 15px;
-    font-weight: bold;
-    color: var(--text-color);
-    flex-grow: 1;
-    transition: 0.3s;
-  }
+  .tab { overflow: hidden; border-bottom: 3px solid var(--primary); background-color: var(--table-header-bg); border-radius: 8px 8px 0 0; display: flex; flex-wrap: wrap; }
+  .tab button { background-color: inherit; border: none; cursor: pointer; padding: 15px; font-size: 15px; font-weight: bold; color: var(--text-color); flex-grow: 1; transition: 0.3s; }
   .tab button:hover, .tab button.active { background-color: var(--primary); color: white; }
   .tabcontent { display: none; padding: 25px; border: 1px solid var(--border); border-top: none; background: var(--card-bg); animation: fadeEffect 0.5s; }
   @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
 
-  /* Search Section */
-  .search-section {
-    background: var(--card-bg); padding: 20px; border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px;
-    border: 1px solid var(--border); border-right: 5px solid #8e44ad;
-  }
-  .search-controls { display: flex; gap: 15px; margin-bottom: 20px; }
-  .search-controls select { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 15px; outline: none; background: var(--card-bg); color: var(--text-color); }
-  .search-controls select:focus { border-color: #8e44ad; }
-  .search-result { background: var(--table-row-hover); padding: 20px; border-radius: 5px; text-align: center; font-size: 18px; border: 1px dashed #8e44ad; color: var(--text-color); }
+  .search-section { background: var(--card-bg); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--border); border-right: 5px solid #8e44ad; }
+  .search-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+  .search-controls select { flex: 1; min-width: 250px; padding: 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 15px; outline: none; background: var(--card-bg); color: var(--text-color); }
+  .search-result { background: var(--table-row-hover); padding: 20px; border-radius: 5px; text-align: center; font-size: 18px; border: 1px dashed #8e44ad; }
   .search-result span { color: #8e44ad; font-size: 26px; font-weight: bold; margin: 0 10px; }
 
-  /* Cards */
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
-  }
-  .card {
-    background: var(--card-bg); padding: 20px; border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center;
-    border-top: 5px solid var(--primary); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); border-right: 1px solid var(--border);
-  }
-  .card h3 { margin: 0 0 10px 0; font-size: 14px; color: var(--text-color); opacity: 0.8; }
+  .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+  .card { background: var(--card-bg); padding: 20px; border-radius: 8px; text-align: center; border-top: 5px solid var(--primary); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .card h3 { margin: 0 0 10px 0; font-size: 14px; opacity: 0.8; }
   .card p { margin: 0; font-size: 22px; font-weight: bold; color: var(--primary); }
-  .card span { font-size: 12px; color: var(--text-color); opacity: 0.6; }
-  
-  .card-total-cost { border-top-color: #8e44ad; }
-  .card-total-cost p { color: #8e44ad; }
-  .card-steel { border-top-color: var(--accent); }
-  .card-steel p { color: var(--accent); }
+  .card span { font-size: 12px; opacity: 0.6; }
+  .card-total-cost { border-top-color: #8e44ad; } .card-total-cost p { color: #8e44ad; }
+  .card-steel { border-top-color: var(--accent); } .card-steel p { color: var(--accent); }
 
-  /* Interactive & Detailed Tables */
-  .table-header-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px; background: var(--table-row-hover); padding: 10px 15px; border-right: 4px solid var(--success); }
+  .table-header-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px; background: var(--table-row-hover); padding: 10px 15px; border-right: 4px solid var(--success); flex-wrap: wrap; gap: 10px; }
   .export-btn { background: var(--success); color: #fff; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
   .export-btn:hover { background: #219150; }
   
   h2.section-title { margin-top: 45px; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 8px; font-size: 20px; }
-  h3.sub-title { margin-top: 25px; color: var(--text-color); font-size: 16px; background: var(--table-row-hover); padding: 8px 12px; border-right: 4px solid var(--secondary); }
+  h3.sub-title { margin-top: 25px; font-size: 16px; background: var(--table-row-hover); padding: 8px 12px; border-right: 4px solid var(--secondary); }
   
   table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
   th, td { border: 1px solid var(--border); padding: 10px; text-align: center; vertical-align: middle; }
@@ -153,19 +62,21 @@
   tr { background-color: var(--card-bg); }
   tr:nth-child(even) { background-color: var(--table-row-even); }
   tr:hover { background-color: var(--table-row-hover); }
-  .total-row { font-weight: bold; background-color: var(--total-row-bg) !important; color: var(--text-color); }
+  .total-row { font-weight: bold; background-color: var(--total-row-bg) !important; }
   .highlight { color: var(--primary); font-weight: bold; }
 
-  /* Editable Cells & Progress Bar */
   .editable { background-color: var(--editable-bg); border: 1px dashed #f1c40f; cursor: text; font-weight: bold; color: #d35400; outline: none; }
   .editable:focus { border: 1px solid var(--primary); }
   body.dark-mode .editable { color: #f39c12; }
   
   .prog-container { width: 100%; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 5px; height: 8px; }
   .prog-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.4s ease; }
-
-  /* Chart Container */
   .chart-container { width: 100%; max-width: 800px; margin: 30px auto; background: var(--card-bg); padding: 20px; border-radius: 8px; }
+
+  .calc-sheet th { background-color: #d1ecf1; color: #0c5460; font-size: 12.5px; }
+  body.dark-mode .calc-sheet th { background-color: #176575; color: #e0e0e0; }
+  .sub-item { background-color: #f8f9fa; font-weight: bold; text-align: right; padding-right: 15px; }
+  body.dark-mode .sub-item { background-color: #2b2b2b; color: #4da3ff; }
 </style>
 </head>
 <body>
@@ -176,367 +87,479 @@
 </div>
 
 <div class="container">
-  <h1>لوحة تحكم المشروع - إدارة الكميات والتكاليف والتفاصيل</h1>
+  <h1>لوحة تحكم المشروع - إدارة الكميات والتكاليف</h1>
 
   <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'Dashboard')" id="defaultOpen">اللوحة الرئيسية والتحليلات</button>
-    <button class="tablinks" onclick="openTab(event, 'CarWash')">تفاصيل المغسلة</button>
-    <button class="tablinks" onclick="openTab(event, 'SacksWarehouse')">تفاصيل مخازن الشكاير</button>
-    <button class="tablinks" onclick="openTab(event, 'EquipmentHangar')">تفاصيل هنجر المعدات</button>
+    <button class="tablinks" onclick="openTab(event, 'Dashboard')" id="defaultOpen">الرئيسية</button>
+    <button class="tablinks" onclick="openTab(event, 'CombinedTable')">الجدول المجمع للمشروع</button>
+    <button class="tablinks" onclick="openTab(event, 'CarWash')">المغسلة</button>
+    <button class="tablinks" onclick="openTab(event, 'SacksWarehouse')">مخازن الشكاير</button>
+    <button class="tablinks" onclick="openTab(event, 'EquipmentHangar')">هنجر المعدات</button>
   </div>
 
   <!-- ================= DASHBOARD TAB ================= -->
   <div id="Dashboard" class="tabcontent">
-    
-    <!-- قسم البحث التفاعلي -->
     <div class="search-section">
       <h3 style="margin-top:0; color:#8e44ad;">البحث الذكي السريع في كميات المشروع</h3>
       <div class="search-controls">
         <select id="buildingSelect" onchange="updateItems()">
           <option value="">-- اختر المبنى أولاً --</option>
-          <option value="carwash">مبنى المغسلة (Car Wash)</option>
-          <option value="sacks">مخازن الشكاير (عدد 2 هنجر)</option>
-          <option value="equipment">هنجر المعدات والصيانة</option>
+          <option value="project">إجمالي المشروع بالكامل</option>
+          <option value="carwash">مبنى المغسلة</option>
+          <option value="sacks">مخازن الشكاير</option>
+          <option value="equipment">هنجر المعدات</option>
         </select>
         <select id="itemSelect" onchange="showResult()" disabled>
-          <option value="">-- اختر عنصر الحصر (البند) --</option>
+          <option value="">-- اختر البند --</option>
         </select>
       </div>
       <div id="searchResult" class="search-result" style="display:none;"></div>
     </div>
 
-    <!-- البطاقات التجميعية -->
     <div class="dashboard-grid">
       <div class="card">
         <h3>كميات الحفر والردم</h3>
-        <p>11,626 <span style="display:inline;">م³</span></p>
+        <p>11,626.60 <span style="display:inline;">م³</span></p>
       </div>
       <div class="card">
-        <h3>العزل والمشمع</h3>
-        <p>15,188 <span style="display:inline;">م²</span></p>
+        <h3>إجمالي الخرسانات (C+S)</h3>
+        <p>3,309.76 <span style="display:inline;">م³</span></p>
       </div>
       <div class="card card-total-cost">
         <h3>التكلفة الإجمالية التقديرية</h3>
         <p id="globalTotalCost">0 <span style="display:inline;">ج.م</span></p>
-        <span>تُحسب آلياً من تسعير البنود</span>
       </div>
       <div class="card card-steel">
         <h3>إجمالي حديد التسليح</h3>
-        <p>141.28 <span style="display:inline;">طن</span></p>
-        <span>شامل الهالك للمشروع</span>
+        <p>163.21 <span style="display:inline;">طن</span></p>
       </div>
     </div>
+    <div class="chart-container"><canvas id="progressChart"></canvas></div>
+  </div>
 
-    <div class="chart-container">
-      <canvas id="progressChart"></canvas>
+  <!-- ================= COMBINED TABLE TAB ================= -->
+  <div id="CombinedTable" class="tabcontent">
+    <div class="table-header-controls">
+      <h3 style="margin:0; color:var(--success);">مستخلص المشروع: جدول الكميات المجمعة لكافة المباني</h3>
+      <button class="export-btn" onclick="exportTableToCSV('table-combined', 'Master_BOQ_Project.csv')">📥 تصدير الجدول المجمع (Excel)</button>
     </div>
+    <table id="table-combined">
+      <thead>
+        <tr>
+          <th>البند / العنصر المجمع</th>
+          <th>الكمية الإجمالية للمشروع</th>
+          <th>الوحدة</th>
+          <th>سعر الوحدة (ج.م) <small>✎</small></th>
+          <th>التكلفة الإجمالية (ج.م)</th>
+          <th>نسبة التنفيذ % <small>✎</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="calc-row global-row">
+          <td>إجمالي أعمال الحفر</td><td class="qty">6295.51</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_exc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_exc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_exc" data-bar="prog_exc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td>إجمالي أعمال الردم المدموك</td><td class="qty">5331.09</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_fill">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_fill_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_fill" data-bar="prog_fill_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td>فرش مشمع بولي إيثيلين</td><td class="qty">10053.30</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_pe">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_pe" data-bar="prog_pe_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td>إجمالي العزل البيتوميني (شامل القصية)</td><td class="qty">5782.27</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_bit" data-bar="prog_bit_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td>مباني قصية الردم (طوب 25سم)</td><td class="qty">176.45</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_brick">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_brick_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_brick" data-bar="prog_brick_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td class="highlight">خرسانة عادية للأساسات (P.C)</td><td class="qty highlight">320.12</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_pc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_pc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_pc" data-bar="prog_pc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td class="highlight">خرسانة مسلحة (قواعد وميدات ورقاب)</td><td class="qty highlight">729.64</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_rc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_rc" data-bar="prog_rc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row">
+          <td class="highlight" style="color:#8e44ad;">خرسانة أرضيات ممسوسة (S.O.G)</td><td class="qty highlight" style="color:#8e44ad;">2260.00</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_sog_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_sog" data-bar="prog_sog_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row global-row" style="border-bottom: 3px solid var(--accent);">
+          <td class="highlight">إجمالي حديد التسليح (BBS)</td><td class="qty highlight">163.21</td><td class="highlight">طن</td>
+          <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="prog_steel_bar" style="background-color: var(--accent);"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_steel" data-bar="prog_steel_bar">0</span>%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 10px; color: #888; font-size: 12px; text-align: center;">* ملاحظة: الأسعار المدخلة هنا تتزامن تلقائياً لتسعير نفس البنود في التبويبات الفردية للمباني.</div>
   </div>
 
   <!-- ================= CAR WASH TAB ================= -->
   <div id="CarWash" class="tabcontent">
-    
     <div class="table-header-controls">
-      <h3 style="margin:0; color:var(--success);">جدول الخلاصة المالية ونسب التنفيذ لمبنى المغسلة</h3>
-      <button class="export-btn" onclick="exportTableToCSV('summary-carwash', 'CarWash_Cost_Progress.csv')">📥 تصدير التكلفة (Excel)</button>
+      <h3 style="margin:0; color:var(--success);">الخلاصة المالية للمغسلة</h3>
+      <button class="export-btn" onclick="exportTableToCSV('summary-carwash', 'CarWash_Cost.csv')">📥 تصدير (Excel)</button>
     </div>
     <table id="summary-carwash">
       <thead>
-        <tr>
-          <th>البند / العنصر</th><th>الكمية الإجمالية</th><th>الوحدة</th>
-          <th>سعر الوحدة (ج.م) <small>✎</small></th><th>التكلفة الإجمالية (ج.م)</th><th>نسبة التنفيذ % <small>✎</small></th>
-        </tr>
+        <tr><th>البند</th><th>الكمية</th><th>الوحدة</th><th>السعر (ج.م) <small>مُزامن</small></th><th>التكلفة (ج.م)</th><th>التنفيذ المبنى % <small>✎</small></th></tr>
       </thead>
       <tbody>
-        <tr class="calc-row">
+        <tr class="calc-row building-row">
           <td>أعمال الحفر</td><td class="qty">795.50</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="cw_exc_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="cw_exc_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="cw_exc_prog" data-bar="cw_exc_bar">0</span>%</td>
+          <td class="editable price" contenteditable="true" data-store="price_exc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_exc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_exc_prog" data-bar="cw_exc_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>أعمال الردم المدموك</td><td class="qty">670.17</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="cw_fill_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="cw_fill_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="cw_fill_prog" data-bar="cw_fill_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>أعمال الردم</td><td class="qty">670.17</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_fill">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_fill_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_fill_prog" data-bar="cw_fill_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>عزل بيتوميني ومشمع</td><td class="qty">1140.88</td><td>م²</td>
-          <td class="editable price" contenteditable="true" data-store="cw_ins_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="cw_ins_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="cw_ins_prog" data-bar="cw_ins_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>مشمع بولي إيثيلين</td><td class="qty">377.90</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_pe">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_pe_prog" data-bar="cw_pe_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>إجمالي الخرسانات (عادية ومسلحة)</td><td class="qty">179.10</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="cw_conc_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="cw_conc_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="cw_conc_prog" data-bar="cw_conc_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>عزل بيتوميني</td><td class="qty">763.08</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_bit_prog" data-bar="cw_bit_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>حديد التسليح (BBS)</td><td class="qty">16.70</td><td>طن</td>
-          <td class="editable price" contenteditable="true" data-store="cw_steel_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="cw_steel_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="cw_steel_prog" data-bar="cw_steel_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>مباني قصية الردم</td><td class="qty">42.29</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_brick">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_brick_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_brick_prog" data-bar="cw_brick_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight">خرسانة عادية (P.C)</td><td class="qty">28.30</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_pc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_pc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_pc_prog" data-bar="cw_pc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight">خرسانة مسلحة (R.C)</td><td class="qty">150.81</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_rc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_rc_prog" data-bar="cw_rc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row" style="display:none;">
+          <td class="highlight">خرسانة أرضيات (S.O.G)</td><td class="qty">0.00</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
+          <td><span class="editable prog-val" contenteditable="true" data-store="cw_sog_prog" data-bar="cw_sog_bar">0</span></td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td>حديد التسليح</td><td class="qty">16.70</td><td>طن</td>
+          <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_steel_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_steel_prog" data-bar="cw_steel_bar">0</span>%</td>
         </tr>
       </tbody>
     </table>
 
     <hr style="margin: 40px 0; border: 1px solid var(--border);">
 
-    <!-- الجداول التفصيلية -->
-    <h2 class="section-title">التفاصيل الهندسية لحصر مبنى المغسلة (Car Wash)</h2>
-    <h3 class="sub-title">أ. الأعمال الترابية والمشمع</h3>
-    <table>
-      <tr><th>البند</th><th>المساحة (م²) / الأبعاد</th><th>العمق/الارتفاع (م)</th><th>إجمالي الكمية</th></tr>
-      <tr><td>حفر لزوم الأساسات</td><td>318.20 م²</td><td>2.50 م</td><td>795.506 م³</td></tr>
-      <tr><td>حجم الخرسانات المخصومة للردم</td><td>قواعد، ميدات، خزانات ورقاب</td><td>---</td><td>125.337 م³</td></tr>
-      <tr class="total-row"><td>صافي كمية الردم المدموك</td><td colspan="2">795.506 - 125.337</td><td>670.169 م³</td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (أرضيات)</td><td>أسفل ترابيع الأرضيات</td><td>---</td><td><span class="highlight">318.20 م²</span></td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين (ميدات)</td><td>شريحة بعرض 0.60 م × طول 99.5 م</td><td>---</td><td><span class="highlight">59.70 م²</span></td></tr>
-    </table>
+    <h2 class="section-title">دفتر الحصر التفصيلي (Calculation Sheet) - المغسلة</h2>
+    <div style="overflow-x: auto;">
+      <table class="calc-sheet">
+        <thead>
+          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك</th><th>الكمية الإجمالية</th></tr>
+        </thead>
+        <tbody>
+          <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني والعزل</td></tr>
+          <tr><td>حفر لزوم الأساسات[span_9](start_span)[span_9](end_span)</td><td>م³</td><td>1</td><td>---</td><td>مساحة 318.2</td><td>2.50</td><td>795.51</td></tr>
+          <tr><td>خصم الخرسانات المدفونة[span_10](start_span)[span_10](end_span)</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(125.34)</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك[span_11](start_span)[span_11](end_span)</td><td>670.17 م³</td></tr>
+          <tr><td>مشمع بولي إيثيلين (أرضيات+ميدات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>377.90</td></tr>
+          <tr><td>عزل بيتوميني للأساسات[span_12](start_span)[span_12](end_span)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>424.78</td></tr>
+          <tr><td>عزل بيتوميني لقصية الردم[span_13](start_span)[span_13](end_span)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>338.30</td></tr>
+          <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>99.50</td><td>0.25</td><td>1.70</td><td>42.29</td></tr>
+          
+          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)[span_14](start_span)[span_14](end_span)</td></tr>
+          <tr><td>قواعد عادية F1</td><td>م³</td><td>3</td><td>2.00</td><td>1.80</td><td>0.30</td><td>3.24</td></tr>
+          <tr><td>قواعد عادية *F1</td><td>م³</td><td>3</td><td>2.30</td><td>2.10</td><td>0.30</td><td>4.35</td></tr>
+          <tr><td>قواعد عادية F2</td><td>م³</td><td>4</td><td>2.40</td><td>2.40</td><td>0.30</td><td>6.91</td></tr>
+          <tr><td>قواعد عادية F3</td><td>م³</td><td>8</td><td>2.50</td><td>2.30</td><td>0.30</td><td>13.80</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية</td><td>28.30 م³</td></tr>
 
-    <h3 class="sub-title">ب. أعمال الخرسانات والعزل الأساسية (شامل القصية)</h3>
-    <table>
-      <tr><th>العنصر الإنشائي</th><th>النماذج / الأبعاد</th><th>كمية الخرسانة / الطوب</th><th>مسطح العزل البيتوميني</th></tr>
-      <tr><td>مباني قصية الردم (25 سم)</td><td>99.5 م × 0.25 م × 1.70 م</td><td>42.29 م³ (طوب)</td><td>338.30 م² (للوجهين)</td></tr>
-      <tr><td>الخرسانة العادية للقواعد</td><td>F1(3), F1*(3), F2(4), F3(8)</td><td>28.299 م³</td><td>---</td></tr>
-      <tr><td>الخرسانة المسلحة للقواعد</td><td>F1(3), F1*(3), F2(4), F3(8)</td><td>25.745 م³</td><td>108.07 م²</td></tr>
-      <tr><td>رقاب الأعمدة (مدفونة)</td><td>C1(6), C2(4), C3(8)</td><td>---</td><td>55.04 م²</td></tr>
-      <tr><td>الميدات الأرضية والخزانات</td><td>Gb1, Gb2, Gb3 + 4 خزانات</td><td>64.813 م³</td><td>261.70 م²</td></tr>
-    </table>
+          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)[span_15](start_span)[span_15](end_span)</td></tr>
+          <tr><td>قواعد مسلحة منفصلة</td><td>م³</td><td>18</td><td>---</td><td>---</td><td>متغير</td><td>25.75</td></tr>
+          <tr><td>أعمدة الدور الأرضي والأول</td><td>م³</td><td>18</td><td>---</td><td>---</td><td>متغير</td><td>37.50</td></tr>
+          <tr><td>ميدات أرضية</td><td>م³</td><td>1</td><td>99.50</td><td>متغير</td><td>متغير</td><td>17.41</td></tr>
+          <tr><td>كمر الدور الأول B1</td><td>م³</td><td>1</td><td>130.00</td><td>0.25</td><td>0.70</td><td>22.75</td></tr>
+          <tr><td>خزانات أرضية</td><td>م³</td><td>4</td><td>---</td><td>---</td><td>---</td><td>47.40</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة</td><td>150.81 م³</td></tr>
 
-    <h3 class="sub-title" style="border-right-color: var(--accent);">ج. حصر حديد التسليح التفصيلي (BBS)</h3>
-    <table>
-      <thead>
-        <tr><th>العنصر الإنشائي</th><th>التسليح (رئيسي / ثانوي)</th><th>أوزان (T8/T10/T12) كجم</th><th>أوزان (T16/T18) كجم</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>القواعد (18 قاعدة)</td><td>T12 (سفلي 6-7/م')</td><td>982.50 (T12)</td><td>---</td></tr>
-        <tr><td>الخزانات (4 خزانات)</td><td>T12 (خارجي) / T10 (داخلي)</td><td>1,193.50 (T12) + 860.10 (T10)</td><td>---</td></tr>
-        <tr><td>الأعمدة (18 عمود)</td><td>10T16 لـ 14T16 | T10@200</td><td>2,270.50 (T10)</td><td>3,986.00 (T16)</td></tr>
-        <tr><td>الميدات الأرضية</td><td>T16 سفلي / T16-T18 علوي</td><td>815.90 (T10)</td><td>1,173.00 (T16) + 1,014.20 (T18)</td></tr>
-        <tr><td>السقف والكمرات</td><td>شبكة T10 + كمرات 3T16/T12</td><td>2,591.40 (T10) + 173.20 (T12) + 634.10 (Y8)</td><td>1,015.40 (T16)</td></tr>
-        <tr class="total-row"><td colspan="2">إجمالي الطلبية شامل الهالك</td><td colspan="2">16.70 طن</td></tr>
-      </tbody>
-    </table>
+          <tr class="sub-item"><td colspan="7">4. حصر حديد التسليح التفصيلي (BBS)[span_16](start_span)[span_16](end_span)</td></tr>
+          <tr><td>الأساسات والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
+          <tr><td>الأعمدة والميدات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
+          <tr><td>الأسقف والكمرات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح</td><td>16.70 طن</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- ================= SACKS WAREHOUSE TAB ================= -->
   <div id="SacksWarehouse" class="tabcontent">
     <div class="table-header-controls">
-      <h3 style="margin:0; color:var(--success);">جدول الخلاصة المالية ونسب التنفيذ لمخازن الشكاير (2 هنجر)</h3>
-      <button class="export-btn" onclick="exportTableToCSV('summary-sacks', 'Sacks_Cost_Progress.csv')">📥 تصدير التكلفة (Excel)</button>
+      <h3 style="margin:0; color:var(--success);">الخلاصة المالية لمخازن الشكاير (عدد 2 هنجر)</h3>
+      <button class="export-btn" onclick="exportTableToCSV('summary-sacks', 'Sacks_Cost.csv')">📥 تصدير (Excel)</button>
     </div>
     <table id="summary-sacks">
       <thead>
-        <tr>
-          <th>البند / العنصر</th><th>الكمية الإجمالية</th><th>الوحدة</th>
-          <th>سعر الوحدة (ج.م) <small>✎</small></th><th>التكلفة (ج.م)</th><th>نسبة التنفيذ % <small>✎</small></th>
-        </tr>
+        <tr><th>البند</th><th>الكمية</th><th>الوحدة</th><th>السعر (ج.م) <small>مُزامن</small></th><th>التكلفة (ج.م)</th><th>التنفيذ المبنى % <small>✎</small></th></tr>
       </thead>
       <tbody>
-        <tr class="calc-row">
+        <tr class="calc-row building-row">
           <td>أعمال الحفر</td><td class="qty">3420.00</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="sk_exc_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="sk_exc_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="sk_exc_prog" data-bar="sk_exc_bar">0</span>%</td>
+          <td class="editable price" contenteditable="true" data-store="price_exc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_exc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_exc_prog" data-bar="sk_exc_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>أعمال الردم المدموك</td><td class="qty">2844.64</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="sk_fill_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="sk_fill_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="sk_fill_prog" data-bar="sk_fill_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>أعمال الردم</td><td class="qty">2844.64</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_fill">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_fill_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_fill_prog" data-bar="sk_fill_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>عزل ومشمع بولي إيثيلين</td><td class="qty">10769.30</td><td>م²</td>
-          <td class="editable price" contenteditable="true" data-store="sk_ins_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="sk_ins_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="sk_ins_prog" data-bar="sk_ins_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>مشمع بولي إيثيلين</td><td class="qty">8388.80</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_pe">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_pe_prog" data-bar="sk_pe_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>إجمالي الخرسانات</td><td class="qty">575.36</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="sk_conc_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="sk_conc_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="sk_conc_prog" data-bar="sk_conc_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>عزل بيتوميني</td><td class="qty">2380.50</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_bit_prog" data-bar="sk_bit_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>حديد التسليح (BBS)</td><td class="qty">108.33</td><td>طن</td>
-          <td class="editable price" contenteditable="true" data-store="sk_steel_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="sk_steel_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="sk_steel_prog" data-bar="sk_steel_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>مباني قصية الردم</td><td class="qty">81.00</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_brick">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_brick_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_brick_prog" data-bar="sk_brick_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight">خرسانة عادية (P.C)</td><td class="qty">226.14</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_pc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_pc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_pc_prog" data-bar="sk_pc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight">خرسانة مسلحة (R.C)</td><td class="qty">349.22</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_rc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_rc_prog" data-bar="sk_rc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight" style="color:#8e44ad;">خرسانة أرضيات (S.O.G)</td><td class="qty">2000.00</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_sog_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_sog_prog" data-bar="sk_sog_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td>حديد التسليح</td><td class="qty">108.33</td><td>طن</td>
+          <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="sk_steel_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_steel_prog" data-bar="sk_steel_bar">0</span>%</td>
         </tr>
       </tbody>
     </table>
 
     <hr style="margin: 40px 0; border: 1px solid var(--border);">
 
-    <h2 class="section-title">التفاصيل الهندسية لحصر مخازن الشكاير</h2>
-    <h3 class="sub-title">أ. الأعمال الترابية والمشمع والخرسانات (للهنجر الواحد)</h3>
-    <table>
-      <tr><th>البند</th><th>التفاصيل</th><th>الكمية</th></tr>
-      <tr><td>حفر لزوم الأساسات</td><td>شرائح وقواعد (1315 م² × 1.30 م)</td><td>1,710 م³</td></tr>
-      <tr><td>الردم المدموك</td><td>الحفر (1710) - مخصوم (287.67)</td><td>1,422.3 م³</td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين</td><td>أسفل الأرضيات (4000 م²) + ميدات (194.4 م²)</td><td>4,194.4 م²</td></tr>
-      <tr><td>مباني قصية الردم وعزلها</td><td>طول 324 م × 0.5 م ارتفاع</td><td>40.5 م³ (طوب) | 324 م² (عزل)</td></tr>
-      <tr><td>الخرسانة العادية والمسلحة</td><td>القواعد والميدات والرقاب</td><td>287.68 م³</td></tr>
-    </table>
+    <h2 class="section-title">دفتر الحصر التفصيلي (Calculation Sheet) - مخازن الشكاير</h2>
+    <div style="overflow-x: auto;">
+      <table class="calc-sheet">
+        <thead>
+          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك</th><th>الكمية (للهنجرين)</th></tr>
+        </thead>
+        <tbody>
+          <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني والعزل</td></tr>
+          <tr><td>حفر الأساسات بنظام الشرائح[span_17](start_span)[span_17](end_span)</td><td>م³</td><td>2</td><td>---</td><td>مساحة 1315</td><td>1.30</td><td>3420.00</td></tr>
+          <tr><td>خصم الخرسانات المدفونة[span_18](start_span)[span_18](end_span)</td><td>م³</td><td>2</td><td>---</td><td>---</td><td>---</td><td>(575.36)</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك[span_19](start_span)[span_19](end_span)</td><td>2844.64 م³</td></tr>
+          <tr><td>مشمع بولي إيثيلين</td><td>م²</td><td>2</td><td>---</td><td>---</td><td>---</td><td>8388.80</td></tr>
+          <tr><td>عزل بيتوميني[span_20](start_span)[span_20](end_span)</td><td>م²</td><td>2</td><td>---</td><td>---</td><td>---</td><td>2380.50</td></tr>
+          <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>2</td><td>324.00</td><td>0.25</td><td>0.50</td><td>81.00</td></tr>
+          
+          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)[span_21](start_span)[span_21](end_span)</td></tr>
+          <tr><td>عادية قواعد F</td><td>م³</td><td>8</td><td>1.40</td><td>1.40</td><td>0.30</td><td>4.70</td></tr>
+          <tr><td>عادية قواعد F1</td><td>م³</td><td>28</td><td>2.50</td><td>2.10</td><td>0.30</td><td>44.10</td></tr>
+          <tr><td>عادية قواعد F2</td><td>م³</td><td>30</td><td>2.20</td><td>1.80</td><td>0.30</td><td>35.64</td></tr>
+          <tr><td>عادية قواعد F3</td><td>م³</td><td>32</td><td>3.80</td><td>3.20</td><td>0.30</td><td>116.74</td></tr>
+          <tr><td>عادية قواعد F4</td><td>م³</td><td>16</td><td>2.60</td><td>2.00</td><td>0.30</td><td>24.96</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية</td><td>226.14 م³</td></tr>
 
-    <h3 class="sub-title" style="border-right-color: var(--accent);">ب. حصر حديد التسليح التفصيلي (للهنجر الواحد)</h3>
-    <table>
-      <thead>
-        <tr><th>العنصر الإنشائي</th><th>التفاصيل</th><th>الوزن (T8/T12) كجم</th><th>الوزن (T16) كجم</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>القواعد (F, F1, F2, F4)</td><td>41 قاعدة (5-6T12)</td><td>1,740.0 (T12)</td><td>---</td></tr>
-        <tr><td>القواعد (F3)</td><td>16 قاعدة (6T16 ثقيلة)</td><td>---</td><td>3,519.6 (T16)</td></tr>
-        <tr><td>رقاب الأعمدة (57 عمود)</td><td>متغير 4T12 لـ 18T16</td><td>532.3 (T8) + 113.7 (T12)</td><td>1,641.1 (T16)</td></tr>
-        <tr><td>الميدات والكمرات</td><td>سفلي وعلوي T12/T16</td><td>2,389.0 (T8) + 1,726.0 (T12)</td><td>4,090.0 (T16)</td></tr>
-        <tr><td>بلاطات الأرضيات (S.O.G)</td><td>شبكة 5T12 للاتجاهين (4000 م²)</td><td><span class="highlight">35,520.0 (T12)</span></td><td>315.0 (T16 أشاير)</td></tr>
-        <tr class="total-row"><td colspan="2">إجمالي الطلبية للهنجرين شامل الهالك</td><td colspan="2">108.33 طن</td></tr>
-      </tbody>
-    </table>
+          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)[span_22](start_span)[span_22](end_span)</td></tr>
+          <tr><td>قواعد مسلحة (F لـ F4)</td><td>م³</td><td>114</td><td>---</td><td>---</td><td>متغير</td><td>226.27</td></tr>
+          <tr><td>رقاب أعمدة</td><td>م³</td><td>114</td><td>---</td><td>---</td><td>متغير</td><td>25.75</td></tr>
+          <tr><td>ميدات أرضية GB1</td><td>م³</td><td>2</td><td>324.00</td><td>0.30</td><td>0.50</td><td>97.20</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة</td><td>349.22 م³</td></tr>
+
+          <tr class="sub-item"><td colspan="7">4. خرسانة الأرضيات الممسوسة (S.O.G)</td></tr>
+          <tr><td>أرضيات خرسانية</td><td>م³</td><td>2</td><td>---</td><td>مساحة 4000</td><td>0.25</td><td>2000.00</td></tr>
+
+          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)[span_23](start_span)[span_23](end_span)</td></tr>
+          <tr><td>القواعد والميدات والرقاب</td><td>كجم</td><td>2</td><td>---</td><td>---</td><td>---</td><td>30,580</td></tr>
+          <tr><td>شبكة الأرضيات S.O.G</td><td>كجم</td><td>2</td><td>---</td><td>---</td><td>---</td><td>71,040</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح</td><td>108.33 طن</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- ================= EQUIPMENT HANGAR TAB ================= -->
   <div id="EquipmentHangar" class="tabcontent">
     <div class="table-header-controls">
-      <h3 style="margin:0; color:var(--success);">جدول الخلاصة المالية ونسب التنفيذ لهنجر المعدات</h3>
-      <button class="export-btn" onclick="exportTableToCSV('summary-equip', 'Equipment_Cost_Progress.csv')">📥 تصدير التكلفة (Excel)</button>
+      <h3 style="margin:0; color:var(--success);">الخلاصة المالية لهنجر المعدات</h3>
+      <button class="export-btn" onclick="exportTableToCSV('summary-equip', 'Equipment_Cost.csv')">📥 تصدير (Excel)</button>
     </div>
     <table id="summary-equip">
       <thead>
-        <tr>
-          <th>البند / العنصر</th><th>الكمية الإجمالية</th><th>الوحدة</th>
-          <th>سعر الوحدة (ج.م) <small>✎</small></th><th>التكلفة (ج.م)</th><th>نسبة التنفيذ % <small>✎</small></th>
-        </tr>
+        <tr><th>البند</th><th>الكمية</th><th>الوحدة</th><th>السعر (ج.م) <small>مُزامن</small></th><th>التكلفة (ج.م)</th><th>التنفيذ المبنى % <small>✎</small></th></tr>
       </thead>
       <tbody>
-        <tr class="calc-row">
+        <tr class="calc-row building-row">
           <td>أعمال الحفر</td><td class="qty">2080.00</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="eq_exc_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="eq_exc_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="eq_exc_prog" data-bar="eq_exc_bar">0</span>%</td>
+          <td class="editable price" contenteditable="true" data-store="price_exc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_exc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_exc_prog" data-bar="eq_exc_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>أعمال الردم المدموك</td><td class="qty">1816.28</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="eq_fill_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="eq_fill_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="eq_fill_prog" data-bar="eq_fill_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>أعمال الردم</td><td class="qty">1816.28</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_fill">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_fill_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_fill_prog" data-bar="eq_fill_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>عزل ومشمع بولي إيثيلين</td><td class="qty">3277.26</td><td>م²</td>
-          <td class="editable price" contenteditable="true" data-store="eq_ins_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="eq_ins_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="eq_ins_prog" data-bar="eq_ins_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>مشمع بولي إيثيلين</td><td class="qty">1286.60</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_pe">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_pe_prog" data-bar="eq_pe_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>إجمالي الخرسانات</td><td class="qty">295.29</td><td>م³</td>
-          <td class="editable price" contenteditable="true" data-store="eq_conc_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="eq_conc_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="eq_conc_prog" data-bar="eq_conc_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>عزل بيتوميني</td><td class="qty">1990.66</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_bit_prog" data-bar="eq_bit_bar">0</span>%</td>
         </tr>
-        <tr class="calc-row">
-          <td>حديد التسليح (BBS)</td><td class="qty">16.25</td><td>طن</td>
-          <td class="editable price" contenteditable="true" data-store="eq_steel_price">0</td><td class="row-cost">0</td>
-          <td><div class="prog-container"><div class="prog-bar" id="eq_steel_bar"></div></div>
-          <span class="editable prog-val" contenteditable="true" data-store="eq_steel_prog" data-bar="eq_steel_bar">0</span>%</td>
+        <tr class="calc-row building-row">
+          <td>مباني قصية الردم</td><td class="qty">53.16</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_brick">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_brick_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_brick_prog" data-bar="eq_brick_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight">خرسانة عادية (P.C)</td><td class="qty">65.68</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_pc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_pc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_pc_prog" data-bar="eq_pc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight">خرسانة مسلحة (R.C)</td><td class="qty">229.61</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_rc">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_rc_prog" data-bar="eq_rc_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td class="highlight" style="color:#8e44ad;">خرسانة أرضيات (S.O.G)</td><td class="qty">260.00</td><td>م³</td>
+          <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_sog_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_sog_prog" data-bar="eq_sog_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td>حديد التسليح</td><td class="qty">38.18</td><td>طن</td>
+          <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="eq_steel_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_steel_prog" data-bar="eq_steel_bar">0</span>%</td>
         </tr>
       </tbody>
     </table>
 
     <hr style="margin: 40px 0; border: 1px solid var(--border);">
 
-    <h2 class="section-title">التفاصيل الهندسية لحصر هنجر المعدات</h2>
-    <h3 class="sub-title">أ. الأعمال الترابية والمشمع والخرسانات</h3>
-    <table>
-      <tr><th>البند</th><th>التفاصيل</th><th>الكمية</th></tr>
-      <tr><td>حفر لزوم الأساسات</td><td>مساحة 1040 م² × عمق 2.00 م</td><td>2,080 م³</td></tr>
-      <tr><td>الردم المدموك</td><td>الحفر - المخصوم المدفون</td><td>1,816.28 م³</td></tr>
-      <tr><td>فرش مشمع بولي إيثيلين</td><td>أرضيات (1040 م²) + ميدات (246.6 م²)</td><td>1,286.6 م²</td></tr>
-      <tr><td>مباني قصية الردم وعزلها</td><td>طول 411 م × 1.15 م ارتفاع</td><td>53.16 م³ (طوب) | 945.3 م² (عزل)</td></tr>
-      <tr><td>الخرسانة العادية والمسلحة</td><td>عادية (65.68) + مسلحة وركاب (229.61)</td><td>295.29 م³</td></tr>
-    </table>
+    <h2 class="section-title">دفتر الحصر التفصيلي (Calculation Sheet) - هنجر المعدات</h2>
+    <div style="overflow-x: auto;">
+      <table class="calc-sheet">
+        <thead>
+          <tr><th>بيان الأعمال</th><th>الوحدة</th><th>العدد</th><th>الطول (م)</th><th>العرض (م)</th><th>الارتفاع/السمك</th><th>الكمية الإجمالية</th></tr>
+        </thead>
+        <tbody>
+          <tr class="sub-item"><td colspan="7">1. الأعمال الترابية والمباني والعزل</td></tr>
+          <tr><td>حفر لزوم الأساسات[span_24](start_span)[span_24](end_span)</td><td>م³</td><td>1</td><td>---</td><td>مساحة 1040</td><td>2.00</td><td>2080.00</td></tr>
+          <tr><td>خصم الخرسانات المدفونة[span_25](start_span)[span_25](end_span)</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(263.72)</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك[span_26](start_span)[span_26](end_span)</td><td>1816.28 م³</td></tr>
+          <tr><td>مشمع بولي إيثيلين</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>1286.60</td></tr>
+          <tr><td>عزل بيتوميني[span_27](start_span)[span_27](end_span)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>1990.66</td></tr>
+          <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>411.00</td><td>0.25</td><td>1.15</td><td>53.16</td></tr>
 
-    <h3 class="sub-title" style="border-right-color: var(--accent);">ب. حصر حديد التسليح التفصيلي (BBS)</h3>
-    <table>
-      <thead>
-        <tr><th>العنصر الإنشائي</th><th>التسليح (رئيسي / ثانوي)</th><th>أوزان (T10/T12) كجم</th><th>أوزان (T16/T18) كجم</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>القواعد (F0, F1, F2)</td><td>6-8T12 / م' (فرش وغطاء)</td><td>1,708.50 (T12)</td><td>---</td></tr>
-        <tr><td>الخزانات (4 خزانات)</td><td>T12@150/200 خارجي | T10 داخلي</td><td>2,744.50 (T12) + 956.20 (T10)</td><td>---</td></tr>
-        <tr><td>الأعمدة (C0, C1, Pc)</td><td>4-8T16 و 12T18 لـ Pc | كانات T10</td><td>1,085.10 (T10)</td><td>733.1 (T16) + 2,184.0 (T18)</td></tr>
-        <tr><td>الميدات الأرضية</td><td>4-8T16 | كانات T10@200</td><td>2,398.00 (T10)</td><td>3,684.56 (T16)</td></tr>
-        <tr class="total-row"><td colspan="2">إجمالي الطلبية شامل الهالك</td><td colspan="2">16.25 طن</td></tr>
-      </tbody>
-    </table>
+          <tr class="sub-item"><td colspan="7">2. أعمال الخرسانة العادية (P.C)[span_28](start_span)[span_28](end_span)</td></tr>
+          <tr><td>عادية قواعد F0</td><td>م³</td><td>18</td><td>1.40</td><td>1.40</td><td>0.30</td><td>10.58</td></tr>
+          <tr><td>عادية قواعد F1</td><td>م³</td><td>20</td><td>1.70</td><td>1.70</td><td>0.30</td><td>17.34</td></tr>
+          <tr><td>عادية قواعد F2</td><td>م³</td><td>26</td><td>2.20</td><td>2.20</td><td>0.30</td><td>37.75</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة العادية</td><td>65.68 م³</td></tr>
+
+          <tr class="sub-item"><td colspan="7">3. أعمال الخرسانة المسلحة (R.C)[span_29](start_span)[span_29](end_span)</td></tr>
+          <tr><td>قواعد مسلحة (F0, F1, F2)</td><td>م³</td><td>64</td><td>---</td><td>---</td><td>متغير</td><td>59.06</td></tr>
+          <tr><td>رقاب أعمدة (C0, C1, Pc)</td><td>م³</td><td>64</td><td>---</td><td>---</td><td>متغير</td><td>39.73</td></tr>
+          <tr><td>ميدات وكمرات (Gb0, Gb1, B1)</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>74.14</td></tr>
+          <tr><td>خزانات أرضية</td><td>م³</td><td>4</td><td>---</td><td>---</td><td>---</td><td>56.68</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة</td><td>229.61 م³</td></tr>
+
+          <tr class="sub-item"><td colspan="7">4. خرسانة الأرضيات الممسوسة (S.O.G)</td></tr>
+          <tr><td>أرضيات خرسانية</td><td>م³</td><td>1</td><td>---</td><td>مساحة 1040</td><td>0.25</td><td>260.00</td></tr>
+
+          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)[span_30](start_span)[span_30](end_span)</td></tr>
+          <tr><td>القواعد والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>5,409.2</td></tr>
+          <tr><td>الميدات والأعمدة</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>10,084.2</td></tr>
+          <tr><td>أرضيات الهنجر S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>20,870.0</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح</td><td>38.18 طن</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script>
-// --- 1. وضع سطح المكتب (Desktop Mode) ---
+// --- وضع سطح المكتب ---
 let isDesktopMode = false;
 function toggleDesktopMode() {
   const meta = document.getElementById('viewportMeta');
   const btn = document.getElementById('desktopModeToggle');
   isDesktopMode = !isDesktopMode;
   if(isDesktopMode) {
-    // إجبار الجوال على قراءة الصفحة بعرض 1300 بكسل وتصغيرها
     meta.setAttribute('content', 'width=1300, initial-scale=0.3, maximum-scale=2.0');
     btn.innerHTML = "📱 وضع الجوال";
   } else {
-    // العودة للوضع الطبيعي المتجاوب مع الشاشة
     meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
     btn.innerHTML = "🖥️ وضع سطح المكتب";
   }
 }
 
-// --- 2. الوضع الليلي (Dark Mode) ---
+// --- الوضع الليلي ---
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   let isDark = document.body.classList.contains('dark-mode');
   localStorage.setItem('darkMode', isDark);
   document.getElementById('darkModeToggle').innerHTML = isDark ? "☀️ وضع نهاري" : "🌙 وضع ليلي";
-  
-  // تحديث ألوان الرسم البياني إذا لزم الأمر
-  if (progChart) {
-    Chart.defaults.color = isDark ? '#e0e0e0' : '#666';
-    progChart.update();
-  }
+  if (progChart) { Chart.defaults.color = isDark ? '#e0e0e0' : '#666'; progChart.update(); }
 }
-// فحص الوضع عند التحميل
-if(localStorage.getItem('darkMode') === 'true') {
-  toggleDarkMode();
-}
+if(localStorage.getItem('darkMode') === 'true') { toggleDarkMode(); }
 
-// --- 3. نظام البحث الذكي ---
+// --- البحث الذكي ---
 const boqData = {
+  project: {
+    "إجمالي أعمال الحفر": { value: "6,295.51", unit: "م³" }, "إجمالي أعمال الردم": { value: "5,331.09", unit: "م³" },
+    "مشمع بولي إيثيلين": { value: "10,053.30", unit: "م²" }, "إجمالي العزل البيتوميني": { value: "5,782.27", unit: "م²" },
+    "خرسانة عادية (P.C)": { value: "320.12", unit: "م³" }, "خرسانة مسلحة (R.C)": { value: "729.64", unit: "م³" },
+    "خرسانة أرضيات (S.O.G)": { value: "2,260.00", unit: "م³" }, "إجمالي حديد التسليح": { value: "163.21", unit: "طن" }
+  },
   carwash: {
-    "أعمال الحفر لزوم الأساسات": { value: "795.51", unit: "م³" },
-    "أعمال الردم المدموك": { value: "670.17", unit: "م³" },
-    "مشمع بولي إيثيلين (أرضيات وميدات)": { value: "377.90", unit: "م² (صافي)" },
-    "إجمالي العزل البيتوميني": { value: "763.08", unit: "م² (شامل القصية)" },
-    "مباني قصية الردم (طوب 25سم)": { value: "42.29", unit: "م³" },
-    "إجمالي الخرسانة العادية": { value: "28.30", unit: "م³" },
-    "إجمالي الخرسانة المسلحة": { value: "150.81", unit: "م³" },
-    "إجمالي حديد التسليح": { value: "16.70", unit: "طن" }
+    "أعمال الحفر": { value: "795.51", unit: "م³" }, "أعمال الردم": { value: "670.17", unit: "م³" },
+    "خرسانة عادية": { value: "28.30", unit: "م³" }, "خرسانة مسلحة": { value: "150.81", unit: "م³" },
+    "حديد التسليح": { value: "16.70", unit: "طن" }
   },
   sacks: {
-    "أعمال الحفر لزوم الأساسات": { value: "3,420.00", unit: "م³" },
-    "أعمال الردم المدموك": { value: "2,844.64", unit: "م³" },
-    "مشمع بولي إيثيلين (أرضيات وميدات)": { value: "8,388.80", unit: "م² (صافي)" },
-    "إجمالي العزل البيتوميني": { value: "2,380.50", unit: "م² (شامل القصية)" },
-    "مباني قصية الردم (طوب 25سم)": { value: "81.00", unit: "م³" },
-    "إجمالي الخرسانات": { value: "575.36", unit: "م³" },
-    "إجمالي حديد التسليح": { value: "108.33", unit: "طن (للهنجرين معاً)" }
+    "أعمال الحفر": { value: "3,420.00", unit: "م³" }, "أعمال الردم": { value: "2,844.64", unit: "م³" },
+    "خرسانة عادية": { value: "226.14", unit: "م³" }, "خرسانة مسلحة": { value: "349.22", unit: "م³" },
+    "خرسانة أرضيات (S.O.G)": { value: "2000.00", unit: "م³" }, "حديد التسليح": { value: "108.33", unit: "طن" }
   },
   equipment: {
-    "أعمال الحفر لزوم الأساسات": { value: "2,080.00", unit: "م³" },
-    "أعمال الردم المدموك": { value: "1,816.28", unit: "م³" },
-    "مشمع بولي إيثيلين (أرضيات وميدات)": { value: "1,286.60", unit: "م² (صافي)" },
-    "إجمالي العزل البيتوميني": { value: "1,990.66", unit: "م² (شامل القصية)" },
-    "مباني قصية الردم (طوب 25سم)": { value: "53.16", unit: "م³" },
-    "إجمالي الخرسانات": { value: "295.29", unit: "م³" },
-    "إجمالي حديد التسليح": { value: "16.25", unit: "طن" }
+    "أعمال الحفر": { value: "2,080.00", unit: "م³" }, "أعمال الردم": { value: "1,816.28", unit: "م³" },
+    "خرسانة عادية": { value: "65.68", unit: "م³" }, "خرسانة مسلحة": { value: "229.61", unit: "م³" },
+    "خرسانة أرضيات (S.O.G)": { value: "260.00", unit: "م³" }, "حديد التسليح": { value: "38.18", unit: "طن" }
   }
 };
 
@@ -544,12 +567,11 @@ function updateItems() {
   const bSelect = document.getElementById("buildingSelect");
   const iSelect = document.getElementById("itemSelect");
   const resultDiv = document.getElementById("searchResult");
-  iSelect.innerHTML = '<option value="">-- اختر عنصر الحصر (البند) --</option>';
+  iSelect.innerHTML = '<option value="">-- اختر البند --</option>';
   resultDiv.style.display = "none";
-  const building = bSelect.value;
-  if (building && boqData[building]) {
+  if (bSelect.value && boqData[bSelect.value]) {
     iSelect.disabled = false;
-    for (let key in boqData[building]) {
+    for (let key in boqData[bSelect.value]) {
       let opt = document.createElement("option"); opt.value = key; opt.textContent = key;
       iSelect.appendChild(opt);
     }
@@ -563,11 +585,11 @@ function showResult() {
   if (bSelect && itemKey && boqData[bSelect][itemKey]) {
     const data = boqData[bSelect][itemKey];
     resultDiv.style.display = "block";
-    resultDiv.innerHTML = `الكمية المعتمدة لبند <strong>${itemKey}</strong> هي:<br> <span>${data.value}</span> ${data.unit}`;
+    resultDiv.innerHTML = `كمية <strong>${itemKey}</strong> هي:<br> <span>${data.value}</span> ${data.unit}`;
   } else { resultDiv.style.display = "none"; }
 }
 
-// --- 4. التبويبات (Tabs) ---
+// --- إدارة التبويبات ---
 function openTab(evt, tabName) {
   let i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -579,11 +601,11 @@ function openTab(evt, tabName) {
 }
 document.getElementById("defaultOpen").click();
 
-// --- 5. الحسابات التلقائية والتخزين المحلي ---
+// --- الحسابات، المزامنة، والرسم البياني ---
 function formatCurrency(num) { return new Intl.NumberFormat('en-US').format(num); }
 
 function calculateAll() {
-  let globalTotal = 0;
+  let globalTotalCost = 0;
   let progressData = { cw: 0, sk: 0, eq: 0, cw_count: 0, sk_count: 0, eq_count: 0 };
 
   document.querySelectorAll('.calc-row').forEach(row => {
@@ -604,29 +626,40 @@ function calculateAll() {
     if(prog > 100) { prog = 100; progCell.innerText = 100; }
     
     let rowCost = qty * price;
-    globalTotal += rowCost;
     costCell.innerText = formatCurrency(rowCost);
-    
-    document.getElementById(barId).style.width = prog + '%';
+    if(document.getElementById(barId)) document.getElementById(barId).style.width = prog + '%';
 
-    let storeKey = progCell.getAttribute('data-store');
-    if(storeKey.startsWith('cw_')) { progressData.cw += prog; progressData.cw_count++; }
-    else if(storeKey.startsWith('sk_')) { progressData.sk += prog; progressData.sk_count++; }
-    else if(storeKey.startsWith('eq_')) { progressData.eq += prog; progressData.eq_count++; }
+    if(row.classList.contains('global-row')) {
+      globalTotalCost += rowCost;
+    }
+
+    if(row.classList.contains('building-row')) {
+      let storeKey = progCell.getAttribute('data-store');
+      if(storeKey.includes('cw_')) { progressData.cw += prog; progressData.cw_count++; }
+      else if(storeKey.includes('sk_')) { progressData.sk += prog; progressData.sk_count++; }
+      else if(storeKey.includes('eq_')) { progressData.eq += prog; progressData.eq_count++; }
+    }
   });
 
-  document.getElementById('globalTotalCost').innerHTML = formatCurrency(globalTotal) + ' <span style="display:inline; font-size:14px;">ج.م</span>';
+  document.getElementById('globalTotalCost').innerHTML = formatCurrency(globalTotalCost) + ' <span style="display:inline; font-size:14px;">ج.م</span>';
   updateChart(progressData);
 }
 
 document.querySelectorAll('.editable').forEach(cell => {
   cell.addEventListener('input', function() {
-    localStorage.setItem(this.getAttribute('data-store'), this.innerText.replace(/[^0-9.]/g, ''));
+    let cleanVal = this.innerText.replace(/[^0-9.]/g, '');
+    let storeKey = this.getAttribute('data-store');
+    localStorage.setItem(storeKey, cleanVal);
+    
+    if(this.classList.contains('price')) {
+      document.querySelectorAll(`.editable.price[data-store="${storeKey}"]`).forEach(sibling => {
+        if(sibling !== this) sibling.innerText = cleanVal;
+      });
+    }
     calculateAll();
   });
 });
 
-// --- 6. التصدير لـ Excel (CSV) ---
 function exportTableToCSV(tableId, filename) {
   let csv = [];
   let rows = document.querySelectorAll(`#${tableId} tr`);
@@ -648,7 +681,6 @@ function exportTableToCSV(tableId, filename) {
   downloadLink.click();
 }
 
-// --- 7. الرسم البياني (Chart.js) ---
 let progChart;
 function updateChart(data) {
   let cw_avg = data.cw_count ? (data.cw / data.cw_count).toFixed(1) : 0;
@@ -674,16 +706,11 @@ function updateChart(data) {
         borderWidth: 1
       }]
     },
-    options: {
-      responsive: true,
-      scales: { y: { beginAtZero: true, max: 100 } },
-      plugins: { legend: { display: false }, title: { display: true, text: 'مؤشر أداء الإنجاز العام للمباني', font: { size: 16 } } }
-    }
+    options: { responsive: true, scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { display: false }, title: { display: true, text: 'مؤشر أداء الإنجاز العام للمباني', font: { size: 16 } } } }
   });
 }
 
 document.addEventListener("DOMContentLoaded", function() { calculateAll(); });
 </script>
-
 </body>
 </html>
