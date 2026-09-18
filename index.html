@@ -2,7 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- تمت إضافة ID للـ viewport للتحكم به برمجياً لوضع سطح المكتب -->
+<meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نظام إدارة وحصر كميات المشروع - الإصدار الشامل</title>
 <!-- مكتبة Chart.js للرسوم البيانية -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,34 +14,80 @@
     --accent: #d35400;
     --success: #27ae60;
     --bg: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333333;
     --border: #dee2e6;
+    --table-header-bg: #e9ecef;
+    --table-row-even: #fdfdfd;
+    --table-row-hover: #f1f2f6;
+    --total-row-bg: #d6d8db;
+    --editable-bg: #fffde7;
   }
   
+  /* ألوان الوضع الليلي (Dark Mode) */
+  body.dark-mode {
+    --primary: #66b0ff;
+    --secondary: #4da3ff;
+    --accent: #e67e22;
+    --success: #2ecc71;
+    --bg: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --border: #333333;
+    --table-header-bg: #2a2a2a;
+    --table-row-even: #242424;
+    --table-row-hover: #333333;
+    --total-row-bg: #111111;
+    --editable-bg: #3a321a;
+  }
+
   body {
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
     background-color: var(--bg);
-    color: #333;
+    color: var(--text-color);
     margin: 0;
     padding: 20px;
     font-size: 13.5px;
+    transition: background-color 0.3s, color 0.3s;
   }
   
   .container {
     max-width: 1300px;
     margin: 0 auto;
-    background: #fff;
+    background: var(--card-bg);
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
   }
   
+  /* أزرار التحكم العلوية (ليلي / سطح مكتب) */
+  .top-controls-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .top-btn {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: 0.3s;
+  }
+  .top-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
   h1 { text-align: center; color: var(--primary); margin-bottom: 25px; font-size: 26px; }
 
   /* Tabs */
   .tab {
     overflow: hidden;
     border-bottom: 3px solid var(--primary);
-    background-color: #e9ecef;
+    background-color: var(--table-header-bg);
     border-radius: 8px 8px 0 0;
     display: flex;
   }
@@ -51,24 +98,24 @@
     padding: 15px;
     font-size: 15px;
     font-weight: bold;
-    color: #495057;
+    color: var(--text-color);
     flex-grow: 1;
     transition: 0.3s;
   }
   .tab button:hover, .tab button.active { background-color: var(--primary); color: white; }
-  .tabcontent { display: none; padding: 25px; border: 1px solid var(--border); border-top: none; animation: fadeEffect 0.5s; }
+  .tabcontent { display: none; padding: 25px; border: 1px solid var(--border); border-top: none; background: var(--card-bg); animation: fadeEffect 0.5s; }
   @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
 
   /* Search Section */
   .search-section {
-    background: #fff; padding: 20px; border-radius: 8px;
+    background: var(--card-bg); padding: 20px; border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px;
     border: 1px solid var(--border); border-right: 5px solid #8e44ad;
   }
   .search-controls { display: flex; gap: 15px; margin-bottom: 20px; }
-  .search-controls select { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 15px; outline: none; }
+  .search-controls select { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 15px; outline: none; background: var(--card-bg); color: var(--text-color); }
   .search-controls select:focus { border-color: #8e44ad; }
-  .search-result { background: #f4f0f8; padding: 20px; border-radius: 5px; text-align: center; font-size: 18px; border: 1px dashed #8e44ad; }
+  .search-result { background: var(--table-row-hover); padding: 20px; border-radius: 5px; text-align: center; font-size: 18px; border: 1px dashed #8e44ad; color: var(--text-color); }
   .search-result span { color: #8e44ad; font-size: 26px; font-weight: bold; margin: 0 10px; }
 
   /* Cards */
@@ -79,13 +126,13 @@
     margin: 20px 0;
   }
   .card {
-    background: #fff; padding: 20px; border-radius: 8px;
+    background: var(--card-bg); padding: 20px; border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center;
-    border-top: 5px solid var(--primary);
+    border-top: 5px solid var(--primary); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); border-right: 1px solid var(--border);
   }
-  .card h3 { margin: 0 0 10px 0; font-size: 14px; color: #555; }
+  .card h3 { margin: 0 0 10px 0; font-size: 14px; color: var(--text-color); opacity: 0.8; }
   .card p { margin: 0; font-size: 22px; font-weight: bold; color: var(--primary); }
-  .card span { font-size: 12px; color: #888; }
+  .card span { font-size: 12px; color: var(--text-color); opacity: 0.6; }
   
   .card-total-cost { border-top-color: #8e44ad; }
   .card-total-cost p { color: #8e44ad; }
@@ -93,32 +140,40 @@
   .card-steel p { color: var(--accent); }
 
   /* Interactive & Detailed Tables */
-  .table-header-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px; background: #f8f9fa; padding: 10px 15px; border-right: 4px solid var(--success); }
+  .table-header-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px; background: var(--table-row-hover); padding: 10px 15px; border-right: 4px solid var(--success); }
   .export-btn { background: var(--success); color: #fff; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
   .export-btn:hover { background: #219150; }
   
   h2.section-title { margin-top: 45px; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 8px; font-size: 20px; }
-  h3.sub-title { margin-top: 25px; color: #444; font-size: 16px; background: #f1f3f5; padding: 8px 12px; border-right: 4px solid var(--secondary); }
+  h3.sub-title { margin-top: 25px; color: var(--text-color); font-size: 16px; background: var(--table-row-hover); padding: 8px 12px; border-right: 4px solid var(--secondary); }
   
   table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
   th, td { border: 1px solid var(--border); padding: 10px; text-align: center; vertical-align: middle; }
-  th { background-color: #e9ecef; color: var(--primary); font-weight: bold; }
-  tr:nth-child(even) { background-color: #fdfdfd; }
-  tr:hover { background-color: #f1f2f6; }
-  .total-row { font-weight: bold; background-color: #d6d8db !important; color: #000; }
+  th { background-color: var(--table-header-bg); color: var(--primary); font-weight: bold; }
+  tr { background-color: var(--card-bg); }
+  tr:nth-child(even) { background-color: var(--table-row-even); }
+  tr:hover { background-color: var(--table-row-hover); }
+  .total-row { font-weight: bold; background-color: var(--total-row-bg) !important; color: var(--text-color); }
   .highlight { color: var(--primary); font-weight: bold; }
 
   /* Editable Cells & Progress Bar */
-  .editable { background-color: #fffde7; border: 1px dashed #f1c40f; cursor: text; font-weight: bold; color: #d35400; outline: none; }
-  .editable:focus { border: 1px solid var(--primary); background-color: #fff; }
-  .prog-container { width: 100%; background: #ddd; border-radius: 4px; overflow: hidden; margin-bottom: 5px; height: 8px; }
+  .editable { background-color: var(--editable-bg); border: 1px dashed #f1c40f; cursor: text; font-weight: bold; color: #d35400; outline: none; }
+  .editable:focus { border: 1px solid var(--primary); }
+  body.dark-mode .editable { color: #f39c12; }
+  
+  .prog-container { width: 100%; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 5px; height: 8px; }
   .prog-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.4s ease; }
 
   /* Chart Container */
-  .chart-container { width: 100%; max-width: 800px; margin: 30px auto; }
+  .chart-container { width: 100%; max-width: 800px; margin: 30px auto; background: var(--card-bg); padding: 20px; border-radius: 8px; }
 </style>
 </head>
 <body>
+
+<div class="top-controls-bar">
+  <button id="darkModeToggle" class="top-btn" onclick="toggleDarkMode()">🌙 وضع ليلي</button>
+  <button id="desktopModeToggle" class="top-btn" onclick="toggleDesktopMode()">🖥️ وضع سطح المكتب</button>
+</div>
 
 <div class="container">
   <h1>لوحة تحكم المشروع - إدارة الكميات والتكاليف والتفاصيل</h1>
@@ -180,7 +235,6 @@
   <!-- ================= CAR WASH TAB ================= -->
   <div id="CarWash" class="tabcontent">
     
-    <!-- 1. جدول التسعير والمتابعة التفاعلي -->
     <div class="table-header-controls">
       <h3 style="margin:0; color:var(--success);">جدول الخلاصة المالية ونسب التنفيذ لمبنى المغسلة</h3>
       <button class="export-btn" onclick="exportTableToCSV('summary-carwash', 'CarWash_Cost_Progress.csv')">📥 تصدير التكلفة (Excel)</button>
@@ -226,11 +280,10 @@
       </tbody>
     </table>
 
-    <hr style="margin: 40px 0; border: 1px solid #dee2e6;">
+    <hr style="margin: 40px 0; border: 1px solid var(--border);">
 
-    <!-- 2. الجداول التفصيلية (الأصلية) -->
+    <!-- الجداول التفصيلية -->
     <h2 class="section-title">التفاصيل الهندسية لحصر مبنى المغسلة (Car Wash)</h2>
-    
     <h3 class="sub-title">أ. الأعمال الترابية والمشمع</h3>
     <table>
       <tr><th>البند</th><th>المساحة (م²) / الأبعاد</th><th>العمق/الارتفاع (م)</th><th>إجمالي الكمية</th></tr>
@@ -269,7 +322,6 @@
 
   <!-- ================= SACKS WAREHOUSE TAB ================= -->
   <div id="SacksWarehouse" class="tabcontent">
-    
     <div class="table-header-controls">
       <h3 style="margin:0; color:var(--success);">جدول الخلاصة المالية ونسب التنفيذ لمخازن الشكاير (2 هنجر)</h3>
       <button class="export-btn" onclick="exportTableToCSV('summary-sacks', 'Sacks_Cost_Progress.csv')">📥 تصدير التكلفة (Excel)</button>
@@ -315,9 +367,8 @@
       </tbody>
     </table>
 
-    <hr style="margin: 40px 0; border: 1px solid #dee2e6;">
+    <hr style="margin: 40px 0; border: 1px solid var(--border);">
 
-    <!-- الجداول التفصيلية -->
     <h2 class="section-title">التفاصيل الهندسية لحصر مخازن الشكاير</h2>
     <h3 class="sub-title">أ. الأعمال الترابية والمشمع والخرسانات (للهنجر الواحد)</h3>
     <table>
@@ -339,7 +390,7 @@
         <tr><td>القواعد (F3)</td><td>16 قاعدة (6T16 ثقيلة)</td><td>---</td><td>3,519.6 (T16)</td></tr>
         <tr><td>رقاب الأعمدة (57 عمود)</td><td>متغير 4T12 لـ 18T16</td><td>532.3 (T8) + 113.7 (T12)</td><td>1,641.1 (T16)</td></tr>
         <tr><td>الميدات والكمرات</td><td>سفلي وعلوي T12/T16</td><td>2,389.0 (T8) + 1,726.0 (T12)</td><td>4,090.0 (T16)</td></tr>
-        <tr style="background-color: #fcf3cf;"><td>بلاطات الأرضيات (S.O.G)</td><td>شبكة 5T12 للاتجاهين (4000 م²)</td><td><span class="highlight">35,520.0 (T12)</span></td><td>315.0 (T16 أشاير)</td></tr>
+        <tr><td>بلاطات الأرضيات (S.O.G)</td><td>شبكة 5T12 للاتجاهين (4000 م²)</td><td><span class="highlight">35,520.0 (T12)</span></td><td>315.0 (T16 أشاير)</td></tr>
         <tr class="total-row"><td colspan="2">إجمالي الطلبية للهنجرين شامل الهالك</td><td colspan="2">108.33 طن</td></tr>
       </tbody>
     </table>
@@ -347,7 +398,6 @@
 
   <!-- ================= EQUIPMENT HANGAR TAB ================= -->
   <div id="EquipmentHangar" class="tabcontent">
-    
     <div class="table-header-controls">
       <h3 style="margin:0; color:var(--success);">جدول الخلاصة المالية ونسب التنفيذ لهنجر المعدات</h3>
       <button class="export-btn" onclick="exportTableToCSV('summary-equip', 'Equipment_Cost_Progress.csv')">📥 تصدير التكلفة (Excel)</button>
@@ -393,9 +443,8 @@
       </tbody>
     </table>
 
-    <hr style="margin: 40px 0; border: 1px solid #dee2e6;">
+    <hr style="margin: 40px 0; border: 1px solid var(--border);">
 
-    <!-- الجداول التفصيلية -->
     <h2 class="section-title">التفاصيل الهندسية لحصر هنجر المعدات</h2>
     <h3 class="sub-title">أ. الأعمال الترابية والمشمع والخرسانات</h3>
     <table>
@@ -415,17 +464,51 @@
       <tbody>
         <tr><td>القواعد (F0, F1, F2)</td><td>6-8T12 / م' (فرش وغطاء)</td><td>1,708.50 (T12)</td><td>---</td></tr>
         <tr><td>الخزانات (4 خزانات)</td><td>T12@150/200 خارجي | T10 داخلي</td><td>2,744.50 (T12) + 956.20 (T10)</td><td>---</td></tr>
-        <tr><td>الأعمدة (C0, C1, Pc)</td><td>4-8T16 و 12T18 لـ Pc | كانات T10</td><td>1,085.10 (T10)</td><td>733.1 (T16) + <span style="color:#8e44ad; font-weight:bold;">2,184.0 (T18)</span></td></tr>
+        <tr><td>الأعمدة (C0, C1, Pc)</td><td>4-8T16 و 12T18 لـ Pc | كانات T10</td><td>1,085.10 (T10)</td><td>733.1 (T16) + 2,184.0 (T18)</td></tr>
         <tr><td>الميدات الأرضية</td><td>4-8T16 | كانات T10@200</td><td>2,398.00 (T10)</td><td>3,684.56 (T16)</td></tr>
         <tr class="total-row"><td colspan="2">إجمالي الطلبية شامل الهالك</td><td colspan="2">16.25 طن</td></tr>
       </tbody>
     </table>
   </div>
-
 </div>
 
 <script>
-// --- 1. بيانات نظام البحث الذكي ---
+// --- 1. وضع سطح المكتب (Desktop Mode) ---
+let isDesktopMode = false;
+function toggleDesktopMode() {
+  const meta = document.getElementById('viewportMeta');
+  const btn = document.getElementById('desktopModeToggle');
+  isDesktopMode = !isDesktopMode;
+  if(isDesktopMode) {
+    // إجبار الجوال على قراءة الصفحة بعرض 1300 بكسل وتصغيرها
+    meta.setAttribute('content', 'width=1300, initial-scale=0.3, maximum-scale=2.0');
+    btn.innerHTML = "📱 وضع الجوال";
+  } else {
+    // العودة للوضع الطبيعي المتجاوب مع الشاشة
+    meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+    btn.innerHTML = "🖥️ وضع سطح المكتب";
+  }
+}
+
+// --- 2. الوضع الليلي (Dark Mode) ---
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  let isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDark);
+  document.getElementById('darkModeToggle').innerHTML = isDark ? "☀️ وضع نهاري" : "🌙 وضع ليلي";
+  
+  // تحديث ألوان الرسم البياني إذا لزم الأمر
+  if (progChart) {
+    Chart.defaults.color = isDark ? '#e0e0e0' : '#666';
+    progChart.update();
+  }
+}
+// فحص الوضع عند التحميل
+if(localStorage.getItem('darkMode') === 'true') {
+  toggleDarkMode();
+}
+
+// --- 3. نظام البحث الذكي ---
 const boqData = {
   carwash: {
     "أعمال الحفر لزوم الأساسات": { value: "795.51", unit: "م³" },
@@ -484,7 +567,7 @@ function showResult() {
   } else { resultDiv.style.display = "none"; }
 }
 
-// --- 2. إدارة التبويبات (Tabs) ---
+// --- 4. التبويبات (Tabs) ---
 function openTab(evt, tabName) {
   let i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -496,7 +579,7 @@ function openTab(evt, tabName) {
 }
 document.getElementById("defaultOpen").click();
 
-// --- 3. الحسابات التلقائية، التخزين المحلي، والرسم البياني ---
+// --- 5. الحسابات التلقائية والتخزين المحلي ---
 function formatCurrency(num) { return new Intl.NumberFormat('en-US').format(num); }
 
 function calculateAll() {
@@ -510,7 +593,6 @@ function calculateAll() {
     let costCell = row.querySelector('.row-cost');
     let barId = progCell.getAttribute('data-bar');
 
-    // استرجاع البيانات من LocalStorage
     let savedPrice = localStorage.getItem(priceCell.getAttribute('data-store'));
     let savedProg = localStorage.getItem(progCell.getAttribute('data-store'));
     
@@ -527,7 +609,6 @@ function calculateAll() {
     
     document.getElementById(barId).style.width = prog + '%';
 
-    // بيانات الرسم البياني
     let storeKey = progCell.getAttribute('data-store');
     if(storeKey.startsWith('cw_')) { progressData.cw += prog; progressData.cw_count++; }
     else if(storeKey.startsWith('sk_')) { progressData.sk += prog; progressData.sk_count++; }
@@ -545,14 +626,13 @@ document.querySelectorAll('.editable').forEach(cell => {
   });
 });
 
-// --- 4. التصدير لـ Excel (CSV) ---
+// --- 6. التصدير لـ Excel (CSV) ---
 function exportTableToCSV(tableId, filename) {
   let csv = [];
   let rows = document.querySelectorAll(`#${tableId} tr`);
   for (let i = 0; i < rows.length; i++) {
     let row = [], cols = rows[i].querySelectorAll("td, th");
     for (let j = 0; j < cols.length; j++) {
-      // إزالة علامة القلم ✎ من العناوين
       let data = cols[j].innerText.replace(/✎/g, "").replace(/(\r\n|\n|\r)/gm, " ").trim();
       data = data.replace(/"/g, '""');
       row.push('"' + data + '"');
@@ -568,12 +648,14 @@ function exportTableToCSV(tableId, filename) {
   downloadLink.click();
 }
 
-// --- 5. الرسم البياني (Chart.js) ---
+// --- 7. الرسم البياني (Chart.js) ---
 let progChart;
 function updateChart(data) {
   let cw_avg = data.cw_count ? (data.cw / data.cw_count).toFixed(1) : 0;
   let sk_avg = data.sk_count ? (data.sk / data.sk_count).toFixed(1) : 0;
   let eq_avg = data.eq_count ? (data.eq / data.eq_count).toFixed(1) : 0;
+  let isDark = document.body.classList.contains('dark-mode');
+  Chart.defaults.color = isDark ? '#e0e0e0' : '#666';
 
   if (progChart) {
     progChart.data.datasets[0].data = [cw_avg, sk_avg, eq_avg];
