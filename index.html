@@ -119,19 +119,19 @@
     <div class="dashboard-grid">
       <div class="card">
         <h3>كميات الحفر والردم</h3>
-        <p>11,626.60 م³</p>
+        <p>11,626.60 <span style="display:inline;">م³</span></p>
       </div>
       <div class="card">
-        <h3>إجمالي الخرسانات (شامل حجم صب الأرضيات)</h3>
-        <p>3,507.76 م³</p>
+        <h3>إجمالي العزل والمشمع</h3>
+        <p>15,239.32 <span style="display:inline;">م²</span></p>
       </div>
       <div class="card card-total-cost">
         <h3>التكلفة الإجمالية التقديرية</h3>
-        <p id="globalTotalCost">0 ج.م</p>
+        <p id="globalTotalCost">0 <span style="display:inline;">ج.م</span></p>
       </div>
       <div class="card card-steel">
         <h3>إجمالي حديد التسليح</h3>
-        <p>181.67 طن</p>
+        <p>181.67 <span style="display:inline;">طن</span></p>
       </div>
     </div>
     <div class="chart-container"><canvas id="progressChart"></canvas></div>
@@ -171,7 +171,7 @@
           <td><div class="prog-container"><div class="prog-bar" id="prog_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_pe" data-bar="prog_pe_bar">0</span>%</td>
         </tr>
         <tr class="calc-row global-row">
-          <td>إجمالي العزل البيتوميني (شامل القصية)</td><td class="qty">5782.27</td><td>م²</td>
+          <td>إجمالي العزل البيتوميني (شامل القصية ورقاب الأعمدة + 15سم)</td><td class="qty">5186.02</td><td>م²</td>
           <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="prog_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_bit" data-bar="prog_bit_bar">0</span>%</td>
         </tr>
@@ -233,7 +233,7 @@
           <td><div class="prog-container"><div class="prog-bar" id="cw_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_pe_prog" data-bar="cw_pe_bar">0</span>%</td>
         </tr>
         <tr class="calc-row building-row">
-          <td>عزل بيتوميني</td><td class="qty">763.08</td><td>م²</td>
+          <td>عزل بيتوميني (مُضاف 15سم للرقاب)</td><td class="qty">768.27</td><td>م²</td>
           <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="cw_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_bit_prog" data-bar="cw_bit_bar">0</span>%</td>
         </tr>
@@ -259,7 +259,7 @@
           <td><div class="prog-container"><div class="prog-bar" id="cw_sog_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_sog_prog" data-bar="cw_sog_bar">0</span>%</td>
         </tr>
         <tr class="calc-row building-row">
-          <td>حديد التسليح</td><td class="qty">35.16</td><td>طن</td>
+          <td>حديد التسليح (شامل S.O.G)</td><td class="qty">35.16</td><td>طن</td>
           <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="cw_steel_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_steel_prog" data-bar="cw_steel_bar">0</span>%</td>
         </tr>
@@ -280,7 +280,8 @@
           <tr><td>خصم الخرسانات المدفونة</td><td>م³</td><td>1</td><td>---</td><td>---</td><td>---</td><td>(125.34)</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك</td><td>670.17 م³</td></tr>
           <tr><td>مشمع بولي إيثيلين (أرضيات+ميدات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>377.90</td></tr>
-          <tr><td>عزل بيتوميني للأساسات</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>424.78</td></tr>
+          <tr><td>عزل بيتوميني (قواعد وميدات وخزانات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>369.77</td></tr>
+          <tr><td>عزل بيتوميني لرقاب الأعمدة (+15 سم)</td><td>م²</td><td>18</td><td>---</td><td>---</td><td>متغير 1.75</td><td>60.20</td></tr>
           <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>م²</td><td>2</td><td>99.50</td><td>---</td><td>1.70</td><td>338.30</td></tr>
           <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>99.50</td><td>0.25</td><td>1.70</td><td>42.29</td></tr>
           
@@ -303,9 +304,9 @@
           <tr><td>أرضية المغسلة S.O.G</td><td>م²</td><td>1</td><td>60.00</td><td>16.50</td><td>0.20</td><td>990.00 م² <br><small>(حجم صب: 198 م³)</small></td></tr>
 
           <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)</td></tr>
-          <tr><td>الأساسات والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
-          <tr><td>الأعمدة والميدات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
-          <tr><td>الأسقف والكمرات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
+          <tr><td>الأساسات والخزانات (T10, T12)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
+          <tr><td>الأعمدة والميدات (T10, T16, T18)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
+          <tr><td>الأسقف والكمرات (Y8, T10, T12, T16)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
           <tr><td>أرضية المغسلة (S.O.G) شبكة علوية وسفلية 10T12/m²</td><td>كجم</td><td>1</td><td>---</td><td>مساحة 990</td><td>---</td><td>17,582.40</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>35.16 طن</td></tr>
         </tbody>
@@ -340,7 +341,7 @@
           <td><div class="prog-container"><div class="prog-bar" id="sk_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_pe_prog" data-bar="sk_pe_bar">0</span>%</td>
         </tr>
         <tr class="calc-row building-row">
-          <td>عزل بيتوميني</td><td class="qty">2380.50</td><td>م²</td>
+          <td>عزل بيتوميني (مُضاف 15سم للرقاب)</td><td class="qty">2411.61</td><td>م²</td>
           <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="sk_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="sk_bit_prog" data-bar="sk_bit_bar">0</span>%</td>
         </tr>
@@ -387,7 +388,8 @@
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك (للهنجر الواحد)</td><td>1422.32 م³</td></tr>
           <tr><td>مشمع بولي إيثيلين (أرضيات)</td><td>م²</td><td>1</td><td>---</td><td>مساحة</td><td>---</td><td>4000.00</td></tr>
           <tr><td>مشمع بولي إيثيلين (ميدات)</td><td>م²</td><td>1</td><td>324.00</td><td>0.60</td><td>---</td><td>194.40</td></tr>
-          <tr><td>عزل بيتوميني (قواعد وميدات ورقاب)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>866.25</td></tr>
+          <tr><td>عزل بيتوميني (قواعد وميدات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>752.95</td></tr>
+          <tr><td>عزل بيتوميني لرقاب الأعمدة (+15 سم)</td><td>م²</td><td>57</td><td>---</td><td>---</td><td>متغير 1.15-3.15</td><td>128.85</td></tr>
           <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>م²</td><td>2</td><td>324.00</td><td>---</td><td>0.50</td><td>324.00</td></tr>
           <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>324.00</td><td>0.25</td><td>0.50</td><td>40.50</td></tr>
           
@@ -444,7 +446,7 @@
           <td><div class="prog-container"><div class="prog-bar" id="eq_pe_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_pe_prog" data-bar="eq_pe_bar">0</span>%</td>
         </tr>
         <tr class="calc-row building-row">
-          <td>عزل بيتوميني</td><td class="qty">1990.66</td><td>م²</td>
+          <td>عزل بيتوميني (مُضاف 15سم للرقاب)</td><td class="qty">2006.14</td><td>م²</td>
           <td class="editable price" contenteditable="true" data-store="price_bit">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="eq_bit_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="eq_bit_prog" data-bar="eq_bit_bar">0</span>%</td>
         </tr>
@@ -491,7 +493,8 @@
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الردم المدموك</td><td>1816.28 م³</td></tr>
           <tr><td>مشمع بولي إيثيلين (أرضيات)</td><td>م²</td><td>1</td><td>---</td><td>مساحة</td><td>---</td><td>1040.00</td></tr>
           <tr><td>مشمع بولي إيثيلين (ميدات)</td><td>م²</td><td>1</td><td>411.00</td><td>0.60</td><td>---</td><td>246.60</td></tr>
-          <tr><td>عزل بيتوميني (قواعد ورقاب وميدات وخزانات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>1045.36</td></tr>
+          <tr><td>عزل بيتوميني (قواعد وميدات وخزانات)</td><td>م²</td><td>1</td><td>---</td><td>---</td><td>---</td><td>833.36</td></tr>
+          <tr><td>عزل بيتوميني لرقاب الأعمدة (+15 سم)</td><td>م²</td><td>64</td><td>---</td><td>---</td><td>متغير 1.65-2.65</td><td>227.48</td></tr>
           <tr><td>عزل بيتوميني لقصية الردم (وجهين)</td><td>م²</td><td>2</td><td>411.00</td><td>---</td><td>1.15</td><td>945.30</td></tr>
           <tr><td>مباني قصية الردم (25 سم)</td><td>م³</td><td>1</td><td>411.00</td><td>0.25</td><td>1.15</td><td>53.16</td></tr>
 
@@ -512,9 +515,9 @@
           <tr><td>أرضيات خرسانية S.O.G</td><td>م²</td><td>1</td><td>---</td><td>مساحة 1040</td><td>0.25</td><td>1040.00 م² <br><small>(حجم صب: 260 م³)</small></td></tr>
 
           <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)</td></tr>
-          <tr><td>القواعد والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>5,409.2</td></tr>
-          <tr><td>الميدات والأعمدة</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>10,084.2</td></tr>
-          <tr><td>أرضيات الهنجر S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>20,870.0</td></tr>
+          <tr><td>القواعد والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>5,409.20</td></tr>
+          <tr><td>الميدات والأعمدة</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>10,084.20</td></tr>
+          <tr><td>أرضيات الهنجر S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>20,870.00</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>38.18 طن</td></tr>
         </tbody>
       </table>
@@ -552,27 +555,27 @@ if(localStorage.getItem('darkMode') === 'true') { toggleDarkMode(); }
 const boqData = {
   project: {
     "إجمالي أعمال الحفر": { value: "6,295.51", unit: "م³" }, "إجمالي أعمال الردم المدموك": { value: "5,331.09", unit: "م³" },
-    "فرش مشمع بولي إيثيلين": { value: "10,053.30", unit: "م²" }, "إجمالي العزل البيتوميني (شامل القصية)": { value: "5,782.27", unit: "م²" },
+    "فرش مشمع بولي إيثيلين": { value: "10,053.30", unit: "م²" }, "إجمالي العزل البيتوميني (شامل القصية)": { value: "5,186.02", unit: "م²" },
     "مباني قصية الردم (طوب 25سم)": { value: "176.45", unit: "م³" }, "خرسانة عادية للأساسات (P.C)": { value: "320.12", unit: "م³" },
     "خرسانة مسلحة (قواعد وميدات ورقاب)": { value: "729.64", unit: "م³" }, "أرضيات خرسانية ممسوسة S.O.G": { value: "10,030.00", unit: "م²" }, 
     "إجمالي حديد التسليح (BBS)": { value: "181.67", unit: "طن" }
   },
   carwash: {
     "أعمال الحفر": { value: "795.51", unit: "م³" }, "أعمال الردم": { value: "670.17", unit: "م³" },
-    "مشمع بولي إيثيلين": { value: "377.90", unit: "م²" }, "عزل بيتوميني": { value: "763.08", unit: "م²" },
+    "مشمع بولي إيثيلين": { value: "377.90", unit: "م²" }, "عزل بيتوميني": { value: "768.27", unit: "م²" },
     "مباني قصية الردم": { value: "42.29", unit: "م³" }, "خرسانة عادية (P.C)": { value: "28.30", unit: "م³" },
     "خرسانة مسلحة (R.C)": { value: "150.81", unit: "م³" }, "أرضيات خرسانية (S.O.G)": { value: "990.00", unit: "م²" }, "حديد التسليح": { value: "35.16", unit: "طن" }
   },
   sacks: {
     "أعمال الحفر": { value: "3,420.00", unit: "م³" }, "أعمال الردم": { value: "2,844.64", unit: "م³" },
-    "مشمع بولي إيثيلين": { value: "8,388.80", unit: "م²" }, "عزل بيتوميني": { value: "2,380.50", unit: "م²" },
+    "مشمع بولي إيثيلين": { value: "8,388.80", unit: "م²" }, "عزل بيتوميني": { value: "2,411.61", unit: "م²" },
     "مباني قصية الردم": { value: "81.00", unit: "م³" }, "خرسانة عادية (P.C)": { value: "226.14", unit: "م³" }, 
     "خرسانة مسلحة (R.C)": { value: "349.22", unit: "م³" }, "أرضيات خرسانية (S.O.G)": { value: "8000.00", unit: "م²" }, 
     "حديد التسليح": { value: "108.33", unit: "طن" }
   },
   equipment: {
     "أعمال الحفر": { value: "2,080.00", unit: "م³" }, "أعمال الردم": { value: "1,816.28", unit: "م³" },
-    "مشمع بولي إيثيلين": { value: "1,286.60", unit: "م²" }, "عزل بيتوميني": { value: "1,990.66", unit: "م²" },
+    "مشمع بولي إيثيلين": { value: "1,286.60", unit: "م²" }, "عزل بيتوميني": { value: "2,006.14", unit: "م²" },
     "مباني قصية الردم": { value: "53.16", unit: "م³" }, "خرسانة عادية (P.C)": { value: "65.68", unit: "م³" }, 
     "خرسانة مسلحة (R.C)": { value: "229.61", unit: "م³" }, "أرضيات خرسانية (S.O.G)": { value: "1040.00", unit: "م²" }, 
     "حديد التسليح": { value: "38.18", unit: "طن" }
