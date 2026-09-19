@@ -119,19 +119,19 @@
     <div class="dashboard-grid">
       <div class="card">
         <h3>كميات الحفر والردم</h3>
-        <p>11,626.60 <span style="display:inline;">م³</span></p>
+        <p>11,626.60 م³</p>
       </div>
       <div class="card">
-        <h3>إجمالي الخرسانات (C+S)</h3>
-        <p>3,309.76 <span style="display:inline;">م³</span></p>
+        <h3>إجمالي الخرسانات (شامل حجم صب الأرضيات)</h3>
+        <p>3,507.76 م³</p>
       </div>
       <div class="card card-total-cost">
         <h3>التكلفة الإجمالية التقديرية</h3>
-        <p id="globalTotalCost">0 <span style="display:inline;">ج.م</span></p>
+        <p id="globalTotalCost">0 ج.م</p>
       </div>
       <div class="card card-steel">
         <h3>إجمالي حديد التسليح</h3>
-        <p>163.21 <span style="display:inline;">طن</span></p>
+        <p>181.67 طن</p>
       </div>
     </div>
     <div class="chart-container"><canvas id="progressChart"></canvas></div>
@@ -191,18 +191,19 @@
           <td><div class="prog-container"><div class="prog-bar" id="prog_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_rc" data-bar="prog_rc_bar">0</span>%</td>
         </tr>
         <tr class="calc-row global-row">
-          <td class="highlight" style="color:#8e44ad;">أرضيات خرسانية ممسوسة S.O.G <br><small style="color:#666; font-weight:normal;">(إجمالي حجم الصب: 2260 م³)</small></td>
-          <td class="qty highlight" style="color:#8e44ad;">9040.00</td><td class="highlight">م²</td>
+          <td class="highlight" style="color:#8e44ad;">أرضيات خرسانية ممسوسة S.O.G <br><small style="color:#666; font-weight:normal;">(إجمالي حجم الصب: 2458 م³)</small></td>
+          <td class="qty highlight" style="color:#8e44ad;">10030.00</td><td class="highlight">م²</td>
           <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="prog_sog_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_sog" data-bar="prog_sog_bar">0</span>%</td>
         </tr>
         <tr class="calc-row global-row" style="border-bottom: 3px solid var(--accent);">
-          <td class="highlight">إجمالي حديد التسليح (BBS)</td><td class="qty highlight">163.21</td><td class="highlight">طن</td>
+          <td class="highlight">إجمالي حديد التسليح (BBS)</td><td class="qty highlight">181.67</td><td class="highlight">طن</td>
           <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="prog_steel_bar" style="background-color: var(--accent);"></div></div><span class="editable prog-val" contenteditable="true" data-store="prog_steel" data-bar="prog_steel_bar">0</span>%</td>
         </tr>
       </tbody>
     </table>
+    <div style="margin-top: 10px; color: #888; font-size: 12px; text-align: center;">* ملاحظة: الأسعار المدخلة هنا تتزامن تلقائياً لتسعير نفس البنود في التبويبات الفردية للمباني.</div>
   </div>
 
   <!-- ================= CAR WASH TAB ================= -->
@@ -252,7 +253,13 @@
           <td><div class="prog-container"><div class="prog-bar" id="cw_rc_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_rc_prog" data-bar="cw_rc_bar">0</span>%</td>
         </tr>
         <tr class="calc-row building-row">
-          <td>حديد التسليح</td><td class="qty">16.70</td><td>طن</td>
+          <td class="highlight" style="color:#8e44ad;">أرضيات خرسانية (S.O.G) <br><small style="color:#666; font-weight:normal;">(حجم الصب: 198 م³)</small></td>
+          <td class="qty highlight" style="color:#8e44ad;">990.00</td><td>م²</td>
+          <td class="editable price" contenteditable="true" data-store="price_sog">0</td><td class="row-cost">0</td>
+          <td><div class="prog-container"><div class="prog-bar" id="cw_sog_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_sog_prog" data-bar="cw_sog_bar">0</span>%</td>
+        </tr>
+        <tr class="calc-row building-row">
+          <td>حديد التسليح</td><td class="qty">35.16</td><td>طن</td>
           <td class="editable price" contenteditable="true" data-store="price_steel">0</td><td class="row-cost">0</td>
           <td><div class="prog-container"><div class="prog-bar" id="cw_steel_bar"></div></div><span class="editable prog-val" contenteditable="true" data-store="cw_steel_prog" data-bar="cw_steel_bar">0</span>%</td>
         </tr>
@@ -292,11 +299,15 @@
           <tr><td>خزانات أرضية</td><td>م³</td><td>4</td><td>---</td><td>---</td><td>---</td><td>47.40</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">إجمالي الخرسانة المسلحة</td><td>150.81 م³</td></tr>
 
-          <tr class="sub-item"><td colspan="7">4. حصر حديد التسليح التفصيلي (BBS)</td></tr>
-          <tr><td>الأساسات والخزانات (T10, T12)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
-          <tr><td>الأعمدة والميدات (T10, T16, T18)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
-          <tr><td>الأسقف والكمرات (Y8, T10, T12, T16)</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
-          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>16.70 طن</td></tr>
+          <tr class="sub-item"><td colspan="7">4. خرسانة الأرضيات الممسوسة (S.O.G)</td></tr>
+          <tr><td>أرضية المغسلة S.O.G</td><td>م²</td><td>1</td><td>60.00</td><td>16.50</td><td>0.20</td><td>990.00 م² <br><small>(حجم صب: 198 م³)</small></td></tr>
+
+          <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)</td></tr>
+          <tr><td>الأساسات والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>3036.10</td></tr>
+          <tr><td>الأعمدة والميدات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>9169.90</td></tr>
+          <tr><td>الأسقف والكمرات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>4414.10</td></tr>
+          <tr><td>أرضية المغسلة (S.O.G) شبكة علوية وسفلية 10T12/m²</td><td>كجم</td><td>1</td><td>---</td><td>مساحة 990</td><td>---</td><td>17,582.40</td></tr>
+          <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>35.16 طن</td></tr>
         </tbody>
       </table>
     </div>
@@ -501,9 +512,9 @@
           <tr><td>أرضيات خرسانية S.O.G</td><td>م²</td><td>1</td><td>---</td><td>مساحة 1040</td><td>0.25</td><td>1040.00 م² <br><small>(حجم صب: 260 م³)</small></td></tr>
 
           <tr class="sub-item"><td colspan="7">5. حصر حديد التسليح التفصيلي (BBS)</td></tr>
-          <tr><td>القواعد والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>5,409.20</td></tr>
-          <tr><td>الميدات والأعمدة</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>10,084.20</td></tr>
-          <tr><td>أرضيات الهنجر S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>20,870.00</td></tr>
+          <tr><td>القواعد والخزانات</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>5,409.2</td></tr>
+          <tr><td>الميدات والأعمدة</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>10,084.2</td></tr>
+          <tr><td>أرضيات الهنجر S.O.G</td><td>كجم</td><td>1</td><td>---</td><td>---</td><td>---</td><td>20,870.0</td></tr>
           <tr class="total-row"><td colspan="6" style="text-align:right;">الطلبية النهائية للتسليح (شامل الهالك)</td><td>38.18 طن</td></tr>
         </tbody>
       </table>
@@ -543,14 +554,14 @@ const boqData = {
     "إجمالي أعمال الحفر": { value: "6,295.51", unit: "م³" }, "إجمالي أعمال الردم المدموك": { value: "5,331.09", unit: "م³" },
     "فرش مشمع بولي إيثيلين": { value: "10,053.30", unit: "م²" }, "إجمالي العزل البيتوميني (شامل القصية)": { value: "5,782.27", unit: "م²" },
     "مباني قصية الردم (طوب 25سم)": { value: "176.45", unit: "م³" }, "خرسانة عادية للأساسات (P.C)": { value: "320.12", unit: "م³" },
-    "خرسانة مسلحة (قواعد وميدات ورقاب)": { value: "729.64", unit: "م³" }, "أرضيات خرسانية ممسوسة S.O.G": { value: "9,040.00", unit: "م²" }, 
-    "إجمالي حديد التسليح (BBS)": { value: "163.21", unit: "طن" }
+    "خرسانة مسلحة (قواعد وميدات ورقاب)": { value: "729.64", unit: "م³" }, "أرضيات خرسانية ممسوسة S.O.G": { value: "10,030.00", unit: "م²" }, 
+    "إجمالي حديد التسليح (BBS)": { value: "181.67", unit: "طن" }
   },
   carwash: {
     "أعمال الحفر": { value: "795.51", unit: "م³" }, "أعمال الردم": { value: "670.17", unit: "م³" },
     "مشمع بولي إيثيلين": { value: "377.90", unit: "م²" }, "عزل بيتوميني": { value: "763.08", unit: "م²" },
     "مباني قصية الردم": { value: "42.29", unit: "م³" }, "خرسانة عادية (P.C)": { value: "28.30", unit: "م³" },
-    "خرسانة مسلحة (R.C)": { value: "150.81", unit: "م³" }, "حديد التسليح": { value: "16.70", unit: "طن" }
+    "خرسانة مسلحة (R.C)": { value: "150.81", unit: "م³" }, "أرضيات خرسانية (S.O.G)": { value: "990.00", unit: "م²" }, "حديد التسليح": { value: "35.16", unit: "طن" }
   },
   sacks: {
     "أعمال الحفر": { value: "3,420.00", unit: "م³" }, "أعمال الردم": { value: "2,844.64", unit: "م³" },
